@@ -1,0 +1,110 @@
+/* Certificates Page Styles */
+.certificatesContainer {
+  min-height: 100vh;
+  padding: 140px 40px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.certificatesHeader {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.highlight {
+  color: var(--arshad-color, #00ff00);
+  text-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.categorySection {
+  margin-bottom: 60px;
+}
+
+.categoryTitle {
+  font-size: 2rem;
+  color: var(--arshad-color, #00ff00);
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.certificatesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.certificateCard {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid var(--project-cards-border-color, rgb(23, 240, 186));
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.certificateCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(23, 240, 186, 0.3);
+  border-color: var(--arshad-color, #00ff00);
+}
+
+.certificateImage {
+  width: 100%;
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.certificateCard:hover .cardImage {
+  transform: scale(1.05);
+}
+
+.certificateInfo {
+  padding: 20px;
+  text-align: center;
+}
+
+.certificateTitle {
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Mobile Responsive */
+@media (max-width: 968px) {
+  .certificatesContainer {
+    padding: 100px 20px 40px;
+  }
+
+  .certificatesGrid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .categoryTitle {
+    font-size: 1.5rem;
+  }
+}

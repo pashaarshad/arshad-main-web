@@ -1,0 +1,142 @@
+/* Skills Page Styles */
+.skillsContainer {
+  min-height: 100vh;
+  padding: 140px 40px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.skillsHeader {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.highlight {
+  color: var(--arshad-color, #00ff00);
+  text-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.skillCategory {
+  background: rgba(0, 255, 0, 0.05);
+  border: 2px solid var(--arshad-color, #00ff00);
+  border-radius: 15px;
+  padding: 30px;
+  transition: all 0.3s ease;
+}
+
+.skillCategory:hover {
+  background: rgba(0, 255, 0, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 255, 0, 0.3);
+}
+
+.categoryTitle {
+  font-size: 1.5rem;
+  color: var(--arshad-color, #00ff00);
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.skillIcons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.skillItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.3s ease;
+}
+
+.skillItem:hover {
+  transform: scale(1.1);
+}
+
+.skillIcon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.skillIcon:hover {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+}
+
+.skillName {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+}
+
+.skillsImage {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.illustrationImage {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+  border: 3px solid var(--arshad-color, #00ff00);
+  box-shadow: 0 0 40px rgba(0, 255, 0, 0.3);
+}
+
+/* Mobile Responsive */
+@media (max-width: 968px) {
+  .skillsContainer {
+    padding: 100px 20px 40px;
+  }
+
+  .skillsGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .skillCategory {
+    padding: 25px;
+  }
+
+  .skillIcons {
+    gap: 15px;
+  }
+
+  .skillIcon {
+    width: 50px;
+    height: 50px;
+  }
+}

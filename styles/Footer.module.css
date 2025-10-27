@@ -1,0 +1,35 @@
+/* Footer Styles */
+.footer {
+  bottom: 0px;
+  margin-top: 45%;
+  position: relative;
+  z-index: 10;
+}
+
+.footerContent h1,
+.footerContent h2 {
+  color: #ffff;
+  font-size: 30px;
+  text-align: center;
+  line-height: 40px;
+}
+
+.conter {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+
+@media (max-width: 700px) {
+  .footerContent h1,
+  .footerContent h2 {
+    font-size: 16px;
+    line-height: 30px;
+  }
+
+  .footer {
+    margin-top: 130%;
+  }
+}
