@@ -154,14 +154,14 @@ export default function Certificates() {
                 }
                 
                 return (
-                  <div key={index} className={styles.certificateCard} onClick={() => openModal(filePath)}>
+                  <div key={index} className={styles.certificateCard} onClick={() => openModal(filePath)} suppressHydrationWarning>
                     {isPDF ? (
                       <div className={styles.pdfPreviewCard}>
                         {pdfPreviews[previewKey] ? (
                           <div className={styles.certificateImageWrapper}>
                             <img src={pdfPreviews[previewKey]} alt={typeof file === 'object' ? file.title : 'Certificate'} className={styles.certificateImage} />
                             <div className={styles.overlay}>
-                              <button className={styles.viewCertBtn}>View Full PDF</button>
+                              <button className={styles.viewCertBtn} suppressHydrationWarning>View Full PDF</button>
                             </div>
                           </div>
                         ) : (
@@ -176,7 +176,7 @@ export default function Certificates() {
                       <div className={styles.certificateImageWrapper}>
                         <Image src={filePath} alt={typeof file === 'object' ? file.title : 'Certificate'} width={300} height={220} className={styles.certificateImage} />
                         <div className={styles.overlay}>
-                          <button className={styles.viewCertBtn}>View Certificate</button>
+                          <button className={styles.viewCertBtn} suppressHydrationWarning>View Certificate</button>
                         </div>
                       </div>
                     )}

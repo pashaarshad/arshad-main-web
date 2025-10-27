@@ -1,0 +1,297 @@
+/* Page Loader Styles */
+.loaderContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #000000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  animation: fadeOut 0.5s ease 3s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.loaderContent {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Animated Logo */
+.logoWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.logoText {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--arshad-color, #00ff00);
+  text-shadow: 
+    0 0 20px rgba(0, 255, 0, 0.8),
+    0 0 40px rgba(0, 255, 0, 0.5),
+    0 0 60px rgba(0, 255, 0, 0.3);
+  z-index: 2;
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 
+      0 0 20px rgba(0, 255, 0, 0.8),
+      0 0 40px rgba(0, 255, 0, 0.5);
+  }
+  50% {
+    text-shadow: 
+      0 0 30px rgba(0, 255, 0, 1),
+      0 0 60px rgba(0, 255, 0, 0.8),
+      0 0 90px rgba(0, 255, 0, 0.5);
+  }
+}
+
+/* Orbiting Rings */
+.orbit,
+.orbit2 {
+  position: absolute;
+  border: 2px solid var(--arshad-color, #00ff00);
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+.orbit {
+  width: 100%;
+  height: 100%;
+  animation: rotate 3s linear infinite;
+}
+
+.orbit2 {
+  width: 80%;
+  height: 80%;
+  animation: rotate 2s linear infinite reverse;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Loading Title */
+.loadingTitle {
+  font-size: 2.5rem;
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.dots span {
+  animation: blink 1.4s infinite;
+  color: var(--arshad-color, #00ff00);
+}
+
+.dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0%, 20% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Progress Bar */
+.progressContainer {
+  width: 400px;
+  max-width: 90%;
+  margin: 0 auto 20px;
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border: 1px solid rgba(0, 255, 0, 0.3);
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, 
+    var(--arshad-color, #00ff00) 0%, 
+    #00ff88 50%, 
+    var(--arshad-color, #00ff00) 100%);
+  border-radius: 20px;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -100%;
+  }
+  100% {
+    background-position: 100%;
+  }
+}
+
+.progressText {
+  font-size: 1.2rem;
+  color: var(--arshad-color, #00ff00);
+  font-weight: 600;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+}
+
+/* Subtitle */
+.subtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 400;
+  margin-top: 20px;
+  animation: fadeInUp 1s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Floating Particles Background */
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--arshad-color, #00ff00);
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: float 8s infinite ease-in-out;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+}
+
+.particle:nth-child(1) { left: 10%; animation-duration: 6s; animation-delay: 0s; }
+.particle:nth-child(2) { left: 20%; animation-duration: 8s; animation-delay: 1s; }
+.particle:nth-child(3) { left: 30%; animation-duration: 7s; animation-delay: 2s; }
+.particle:nth-child(4) { left: 40%; animation-duration: 9s; animation-delay: 0.5s; }
+.particle:nth-child(5) { left: 50%; animation-duration: 6.5s; animation-delay: 1.5s; }
+.particle:nth-child(6) { left: 60%; animation-duration: 8.5s; animation-delay: 2.5s; }
+.particle:nth-child(7) { left: 70%; animation-duration: 7.5s; animation-delay: 0.8s; }
+.particle:nth-child(8) { left: 80%; animation-duration: 9.5s; animation-delay: 1.8s; }
+.particle:nth-child(9) { left: 90%; animation-duration: 6.8s; animation-delay: 2.8s; }
+.particle:nth-child(10) { left: 15%; animation-duration: 8.8s; animation-delay: 0.3s; }
+.particle:nth-child(11) { left: 25%; animation-duration: 7.2s; animation-delay: 1.3s; }
+.particle:nth-child(12) { left: 35%; animation-duration: 9.2s; animation-delay: 2.3s; }
+.particle:nth-child(13) { left: 45%; animation-duration: 6.3s; animation-delay: 0.6s; }
+.particle:nth-child(14) { left: 55%; animation-duration: 8.3s; animation-delay: 1.6s; }
+.particle:nth-child(15) { left: 65%; animation-duration: 7.3s; animation-delay: 2.6s; }
+.particle:nth-child(16) { left: 75%; animation-duration: 9.3s; animation-delay: 0.9s; }
+.particle:nth-child(17) { left: 85%; animation-duration: 6.6s; animation-delay: 1.9s; }
+.particle:nth-child(18) { left: 95%; animation-duration: 8.6s; animation-delay: 2.9s; }
+.particle:nth-child(19) { left: 5%; animation-duration: 7.6s; animation-delay: 0.4s; }
+.particle:nth-child(20) { left: 95%; animation-duration: 9.6s; animation-delay: 1.4s; }
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(100vh) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100px) translateX(100px);
+    opacity: 0;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .logo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .logoText {
+    font-size: 2.5rem;
+  }
+
+  .loadingTitle {
+    font-size: 2rem;
+  }
+
+  .progressContainer {
+    width: 300px;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    padding: 0 20px;
+  }
+}

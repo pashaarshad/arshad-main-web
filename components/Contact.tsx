@@ -84,7 +84,7 @@ export default function Contact() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className={styles.contactForm}>
+          <form onSubmit={handleSubmit} className={styles.contactForm} suppressHydrationWarning>
             <div className={styles.formGroup}>
               <input
                 type="text"
@@ -94,6 +94,7 @@ export default function Contact() {
                 placeholder="Your Name"
                 required
                 className={styles.formInput}
+                suppressHydrationWarning
               />
             </div>
             
@@ -106,6 +107,7 @@ export default function Contact() {
                 placeholder="Your Email"
                 required
                 className={styles.formInput}
+                suppressHydrationWarning
               />
             </div>
             
@@ -118,6 +120,7 @@ export default function Contact() {
                 placeholder="Subject"
                 required
                 className={styles.formInput}
+                suppressHydrationWarning
               />
             </div>
             
@@ -130,10 +133,11 @@ export default function Contact() {
                 required
                 rows={6}
                 className={styles.formTextarea}
+                suppressHydrationWarning
               ></textarea>
             </div>
             
-            <button type="submit" className={styles.submitButton}>
+            <button type="submit" className={styles.submitButton} suppressHydrationWarning>
               Send Message
             </button>
           </form>
