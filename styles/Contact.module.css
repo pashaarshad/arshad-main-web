@@ -1,11 +1,14 @@
-/* Contact Page Styles */
-.contactContainer {
+/* Contact Section Styles */
+.contactSection {
   min-height: 100vh;
-  padding: 140px 40px 60px;
-  max-width: 1400px;
-  margin: 0 auto;
+  padding: 80px 40px;
   position: relative;
   z-index: 1;
+}
+
+.contactContainer {
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .contactHeader {
@@ -182,8 +185,8 @@
 
 /* Mobile Responsive */
 @media (max-width: 968px) {
-  .contactContainer {
-    padding: 100px 20px 40px;
+  .contactSection {
+    padding: 60px 20px;
   }
 
   .contactContent {

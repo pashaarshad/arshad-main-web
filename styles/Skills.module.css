@@ -1,11 +1,14 @@
-/* Skills Page Styles */
-.skillsContainer {
+/* Skills Section Styles */
+.skillsSection {
   min-height: 100vh;
-  padding: 140px 40px 60px;
-  max-width: 1400px;
-  margin: 0 auto;
+  padding: 80px 40px;
   position: relative;
   z-index: 1;
+}
+
+.skillsContainer {
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .skillsHeader {
@@ -118,8 +121,8 @@
 
 /* Mobile Responsive */
 @media (max-width: 968px) {
-  .skillsContainer {
-    padding: 100px 20px 40px;
+  .skillsSection {
+    padding: 60px 20px;
   }
 
   .skillsGrid {

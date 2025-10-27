@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import styles from '../styles/Navbar.module.css';
@@ -12,7 +11,23 @@ export default function Navbar() {
     setMenuOpen(!menuOpen);
   };
 
-  const closeMenu = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const offset = 100; // Navbar height
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+    setMenuOpen(false);
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setMenuOpen(false);
   };
 
@@ -20,7 +35,7 @@ export default function Navbar() {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <div className={styles.navLeft}>
-          <div className={styles.logo}>
+          <div className={styles.logo} onClick={scrollToTop} style={{ cursor: 'pointer' }}>
             <Image
               src="/assets/images/logoarshad.jpg"
               alt="Arshad Logo"
@@ -44,39 +59,82 @@ export default function Navbar() {
         <div className={styles.navRight}>
           <ul id="menu" className={menuOpen ? styles.menuOpen : ''}>
             <li>
-              <Link href="/" className={styles.active} onClick={closeMenu}>
+              <a 
+                href="#home" 
+                className={styles.active} 
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToTop();
+                }}
+              >
                 HOME
-              </Link>
+              </a>
             </li>
             <li>
-              <Link href="/about" onClick={closeMenu}>
+              <a 
+                href="#about" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('about');
+                }}
+              >
                 ABOUT
-              </Link>
+              </a>
             </li>
             <li>
-              <Link href="/skills" onClick={closeMenu}>
+              <a 
+                href="#skills" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('skills');
+                }}
+              >
                 SKILLS
-              </Link>
+              </a>
             </li>
             <li>
-              <Link href="/projects" onClick={closeMenu}>
+              <a 
+                href="#projects" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('projects');
+                }}
+              >
                 PROJECTS
-              </Link>
+              </a>
             </li>
             <li>
-              <Link href="/certificates" onClick={closeMenu}>
+              <a 
+                href="#certificates" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('certificates');
+                }}
+              >
                 CERTIFICATES
-              </Link>
+              </a>
             </li>
             <li>
-              <Link href="/internships" onClick={closeMenu}>
+              <a 
+                href="#internships" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('internships');
+                }}
+              >
                 INTERNSHIPS
-              </Link>
+              </a>
             </li>
             <li>
-              <Link href="/contact" onClick={closeMenu}>
+              <a 
+                href="#contact" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('contact');
+                }}
+              >
                 CONTACT
-              </Link>
+              </a>
             </li>
           </ul>
         </div>

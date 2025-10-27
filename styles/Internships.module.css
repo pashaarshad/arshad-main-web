@@ -1,11 +1,14 @@
-/* Internships Page Styles */
-.internshipsContainer {
+/* Internships Section Styles */
+.internshipsSection {
   min-height: 100vh;
-  padding: 140px 40px 60px;
-  max-width: 1400px;
-  margin: 0 auto;
+  padding: 80px 40px;
   position: relative;
   z-index: 1;
+}
+
+.internshipsContainer {
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .internshipsHeader {
@@ -69,6 +72,76 @@
   transform: scale(1.1);
 }
 
+.internshipContent {
+  padding: 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdfIcon {
+  font-size: 4rem;
+  margin-bottom: 15px;
+}
+
+.internshipTitle {
+  font-size: 1.3rem;
+  color: var(--arshad-color, #00ff00);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.internshipOrg {
+  font-size: 1rem;
+  color: #fff;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.internshipDate {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 15px;
+}
+
+.internshipDesc {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.activeBadge {
+  display: inline-block;
+  padding: 6px 12px;
+  background: rgba(255, 69, 0, 0.2);
+  border: 1px solid #ff4500;
+  border-radius: 20px;
+  color: #ff4500;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.viewBtn {
+  padding: 10px 24px;
+  background: var(--arshad-color, #00ff00);
+  color: #000;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.viewBtn:hover {
+  background: transparent;
+  color: var(--arshad-color, #00ff00);
+  border: 2px solid var(--arshad-color, #00ff00);
+}
+
 .internshipInfo {
   padding: 25px;
 }
@@ -118,8 +191,8 @@
 
 /* Mobile Responsive */
 @media (max-width: 968px) {
-  .internshipsContainer {
-    padding: 100px 20px 40px;
+  .internshipsSection {
+    padding: 60px 20px;
   }
 
   .internshipsGrid {
