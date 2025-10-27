@@ -91,7 +91,7 @@ export default function Hero() {
           </Link>
           <Link
             className={styles.bigImg}
-            href="/old_files_of_my_websie/Main Arshad Resume SEP.pdf"
+            href="/assets/resume/Main Arshad Resume SEP.pdf"
             target="_blank"
           >
             <Image

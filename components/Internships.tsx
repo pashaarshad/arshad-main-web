@@ -33,7 +33,7 @@ export default function Internships() {
 
         <div className={styles.internshipsGrid}>
           {internships.map((internship, index) => {
-            const filePath = `/old_files_of_my_websie/intenships/${internship.filename}`;
+            const filePath = `/assets/internships/${internship.filename}`;
             
             return (
               <div key={index} className={styles.internshipCard}>

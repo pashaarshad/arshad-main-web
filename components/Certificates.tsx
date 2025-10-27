@@ -18,7 +18,7 @@ export default function Certificates() {
         'arshad_Oracle Cloud Infrastructure 2025 Certified Multicloud Architect Professional.pdf',
         'arshad_Oracle Cloud Infrastructure 2025 Certified DevOps Professional.pdf'
       ],
-      folder: 'main_professional_certifications'
+      folder: 'Professional'
     },
     hackathons: {
       title: "Hackathon Certificates",
@@ -30,7 +30,7 @@ export default function Certificates() {
         'photo_8_2025-09-09_23-04-19.jpg',
         'photo_10_2025-09-09_23-04-19.jpg'
       ],
-      folder: 'Hackthons'
+      folder: 'Hackathons'
     },
     other: {
       title: "Other Certificates",
@@ -52,7 +52,7 @@ export default function Certificates() {
         'photo_1_2025-09-09_23-04-19.jpg',
         'photo_2_2025-09-09_23-04-19.jpg'
       ],
-      folder: 'Cources'
+      folder: 'Courses'
     },
     college: {
       title: "College Certificates",
@@ -96,7 +96,7 @@ export default function Certificates() {
             <div className={styles.certificatesGrid}>
               {section.files.map((file, index) => {
                 const filename = typeof file === 'string' ? file : file.filename;
-                const filePath = `/old_files_of_my_websie/certificates/${section.folder}/${filename}`;
+                const filePath = `/assets/certificates/${section.folder}/${filename}`;
                 const isPDF = filename.toLowerCase().endsWith('.pdf');
                 
                 return (
