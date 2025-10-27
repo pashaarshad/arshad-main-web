@@ -5,6 +5,54 @@ import styles from '../styles/Certificates.module.css';
 
 export default function Certificates() {
   const [selectedCert, setSelectedCert] = useState<string | null>(null);
+  const [pdfPreviews, setPdfPreviews] = useState<{ [key: string]: string }>({});
+
+  useEffect(() => {
+    // Load PDF.js library
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
+
+  const generatePdfPreview = async (pdfUrl: string, key: string) => {
+    if (pdfPreviews[key]) return; // Already generated
+
+    try {
+      const pdfjsLib = (window as any).pdfjsLib;
+      if (!pdfjsLib) return;
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+      const loadingTask = pdfjsLib.getDocument(pdfUrl);
+      const pdf = await loadingTask.promise;
+      const page = await pdf.getPage(1);
+
+      const scale = 1.5;
+      const viewport = page.getViewport({ scale });
+
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      await page.render({
+        canvasContext: context,
+        viewport: viewport,
+      }).promise;
+
+      const imageUrl = canvas.toDataURL();
+      setPdfPreviews(prev => ({ ...prev, [key]: imageUrl }));
+    } catch (error) {
+      console.error('Error generating PDF preview:', error);
+    }
+  };
 
   const certificateSections = {
     professional: {
@@ -98,14 +146,31 @@ export default function Certificates() {
                 const filename = typeof file === 'string' ? file : file.filename;
                 const filePath = `/assets/certificates/${section.folder}/${filename}`;
                 const isPDF = filename.toLowerCase().endsWith('.pdf');
+                const previewKey = `${key}-${index}`;
+                
+                // Generate PDF preview when component mounts
+                if (isPDF && typeof window !== 'undefined') {
+                  setTimeout(() => generatePdfPreview(filePath, previewKey), 100 * index);
+                }
                 
                 return (
-                  <div key={index} className={styles.certificateCard} onClick={() => !isPDF && openModal(filePath)}>
+                  <div key={index} className={styles.certificateCard} onClick={() => openModal(filePath)}>
                     {isPDF ? (
-                      <div className={styles.pdfCard}>
-                        <div className={styles.pdfIcon}>📄</div>
-                        <p className={styles.pdfName}>{typeof file === 'object' ? file.title : filename}</p>
-                        <a href={filePath} target="_blank" rel="noopener noreferrer" className={styles.viewBtn}>View PDF</a>
+                      <div className={styles.pdfPreviewCard}>
+                        {pdfPreviews[previewKey] ? (
+                          <div className={styles.certificateImageWrapper}>
+                            <img src={pdfPreviews[previewKey]} alt={typeof file === 'object' ? file.title : 'Certificate'} className={styles.certificateImage} />
+                            <div className={styles.overlay}>
+                              <button className={styles.viewCertBtn}>View Full PDF</button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className={styles.pdfLoading}>
+                            <div className={styles.pdfIcon}>📄</div>
+                            <p className={styles.loadingText}>Loading preview...</p>
+                          </div>
+                        )}
+                        <p className={styles.pdfName}>{typeof file === 'object' ? file.title : filename.replace('.pdf', '')}</p>
                       </div>
                     ) : (
                       <div className={styles.certificateImageWrapper}>
@@ -127,7 +192,11 @@ export default function Certificates() {
         <div className={styles.modal} onClick={closeModal}>
           <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
             <span className={styles.closeBtn} onClick={closeModal}>&times;</span>
-            <Image src={selectedCert} alt="Certificate" width={900} height={650} className={styles.modalImage} />
+            {selectedCert.toLowerCase().endsWith('.pdf') ? (
+              <iframe src={selectedCert} className={styles.pdfViewer} title="Certificate PDF" />
+            ) : (
+              <Image src={selectedCert} alt="Certificate" width={900} height={650} className={styles.modalImage} />
+            )}
           </div>
         </div>
       )}
