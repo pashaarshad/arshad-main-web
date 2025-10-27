@@ -1,43 +1,85 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import styles from '../styles/Internships.module.css';
 
 export default function Internships() {
   const [selectedInternship, setSelectedInternship] = useState<string | null>(null);
   const [pdfPreviews, setPdfPreviews] = useState<{ [key: string]: string }>({});
+  const [loadingStates, setLoadingStates] = useState<{ [key: string]: boolean }>({});
+  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const pdfLibLoadedRef = useRef(false);
 
   useEffect(() => {
-    // Load PDF.js library
-    const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-    script.async = true;
-    document.body.appendChild(script);
+    // Load PDF.js library once
+    if (!pdfLibLoadedRef.current) {
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+      script.async = true;
+      script.onload = () => {
+        if ((window as any).pdfjsLib) {
+          (window as any).pdfjsLib.GlobalWorkerOptions.workerSrc = 
+            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+          pdfLibLoadedRef.current = true;
+        }
+      };
+      document.body.appendChild(script);
+
+      return () => {
+        if (document.body.contains(script)) {
+          document.body.removeChild(script);
+        }
+      };
+    }
+  }, []);
+
+  // Intersection Observer for lazy loading
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.getAttribute('data-index') || '0');
+            setVisibleCards(prev => new Set(prev).add(index));
+          }
+        });
+      },
+      { rootMargin: '100px', threshold: 0.1 }
+    );
 
     return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
+      if (observerRef.current) {
+        observerRef.current.disconnect();
       }
     };
   }, []);
 
-  const generatePdfPreview = async (pdfUrl: string, key: string) => {
-    if (pdfPreviews[key]) return; // Already generated
+  const generatePdfPreview = useCallback(async (pdfUrl: string, key: string) => {
+    if (pdfPreviews[key] || loadingStates[key]) return;
+
+    setLoadingStates(prev => ({ ...prev, [key]: true }));
 
     try {
       const pdfjsLib = (window as any).pdfjsLib;
-      if (!pdfjsLib) return;
+      if (!pdfjsLib) {
+        setLoadingStates(prev => ({ ...prev, [key]: false }));
+        return;
+      }
 
-      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-      const loadingTask = pdfjsLib.getDocument(pdfUrl);
+      // Lightweight loading with lower quality for speed
+      const loadingTask = pdfjsLib.getDocument({
+        url: pdfUrl,
+        cMapUrl: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/cmaps/',
+        cMapPacked: true,
+      });
       const pdf = await loadingTask.promise;
       const page = await pdf.getPage(1);
 
-      const scale = 1.5;
-      const viewport = page.getViewport({ scale });
-
+      // Optimized scale for faster rendering
+      const viewport = page.getViewport({ scale: 0.8 });
+      
       const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
+      const context = canvas.getContext('2d', { alpha: false });
       canvas.height = viewport.height;
       canvas.width = viewport.width;
 
@@ -46,12 +88,18 @@ export default function Internships() {
         viewport: viewport,
       }).promise;
 
-      const imageUrl = canvas.toDataURL();
+      // Lower quality for faster loading
+      const imageUrl = canvas.toDataURL('image/jpeg', 0.7);
       setPdfPreviews(prev => ({ ...prev, [key]: imageUrl }));
+      setLoadingStates(prev => ({ ...prev, [key]: false }));
+      
+      // Clean up
+      pdf.destroy();
     } catch (error) {
       console.error('Error generating PDF preview:', error);
+      setLoadingStates(prev => ({ ...prev, [key]: false }));
     }
-  };
+  }, [pdfPreviews, loadingStates]);
 
   const internships = [
     { filename: 'AICTE B1 PD Certificate-30.pdf', title: 'Cyber Security Internship', organization: 'AICTE & Edunet Foundation', date: 'June 2025', description: '6-week virtual internship in Cyber Security' },
@@ -71,45 +119,74 @@ export default function Internships() {
     setSelectedInternship(null);
   };
 
+  // Intersection observer callback
+  const cardRef = useCallback((node: HTMLDivElement | null, index: number) => {
+    if (node && observerRef.current) {
+      node.setAttribute('data-index', index.toString());
+      observerRef.current.observe(node);
+    }
+  }, []);
+
   return (
     <section id="internships" className={styles.internshipsSection}>
       <div className={styles.internshipsContainer}>
         <div className={styles.internshipsHeader}>
           <h2 className={styles.title}>My <span className={styles.highlight}>Internships</span></h2>
-          <p className={styles.subtitle}>Professional training and work experience</p>
+          <p className={styles.subtitle}>Professional internship programs and certifications I have completed</p>
         </div>
 
         <div className={styles.internshipsGrid}>
           {internships.map((internship, index) => {
             const filePath = `/assets/internships/${internship.filename}`;
             const previewKey = `internship-${index}`;
+            const isVisible = visibleCards.has(index);
             
-            // Generate PDF preview when component mounts
-            if (typeof window !== 'undefined') {
-              setTimeout(() => generatePdfPreview(filePath, previewKey), 100 * index);
+            // Generate PDF preview only when visible
+            if (typeof window !== 'undefined' && isVisible && !pdfPreviews[previewKey] && !loadingStates[previewKey] && pdfLibLoadedRef.current) {
+              setTimeout(() => generatePdfPreview(filePath, previewKey), 50);
             }
             
             return (
-              <div key={index} className={styles.internshipCard} onClick={() => openModal(filePath)}>
-                {pdfPreviews[previewKey] ? (
-                  <div className={styles.pdfPreviewWrapper}>
-                    <img src={pdfPreviews[previewKey]} alt={internship.title} className={styles.pdfPreview} />
-                    <div className={styles.previewOverlay}>
-                      <button className={styles.viewFullBtn}>View Full Certificate</button>
+              <div 
+                key={index} 
+                ref={(node) => cardRef(node, index)}
+                className={styles.internshipCard} 
+                onClick={() => openModal(filePath)} 
+                suppressHydrationWarning
+              >
+                <div className={styles.internshipImageContainer}>
+                  {!isVisible ? (
+                    <div className={styles.internshipPlaceholder}>
+                      <div className={styles.placeholderIcon}>📄</div>
+                      <p>Scroll to load...</p>
                     </div>
-                  </div>
-                ) : (
-                  <div className={styles.pdfLoading}>
-                    <div className={styles.pdfIcon}>📄</div>
-                    <p className={styles.loadingText}>Loading preview...</p>
-                  </div>
-                )}
-                <div className={styles.internshipContent}>
-                  <h3 className={styles.internshipTitle}>{internship.title}</h3>
-                  <p className={styles.internshipOrg}>{internship.organization}</p>
-                  <p className={styles.internshipDate}>{internship.date}</p>
-                  <p className={styles.internshipDesc}>{internship.description}</p>
-                  {internship.date.includes('Ongoing') && <span className={styles.activeBadge}>🔥 Currently Active</span>}
+                  ) : loadingStates[previewKey] || !pdfPreviews[previewKey] ? (
+                    <div className={styles.internshipLoader}>
+                      <div className={styles.loadingSpinner}></div>
+                      <p>Loading...</p>
+                    </div>
+                  ) : (
+                    <>
+                      <img 
+                        src={pdfPreviews[previewKey]} 
+                        alt={internship.title} 
+                        className={styles.internshipCanvas}
+                        loading="lazy"
+                      />
+                      <div className={styles.internshipOverlay}>
+                        <div className={styles.internshipOverlayContent}>
+                          <h3>{internship.title}</h3>
+                          <p><strong>Organization:</strong> {internship.organization}</p>
+                          <p><strong>Duration:</strong> {internship.date}</p>
+                          <p className={styles.internshipDesc}>{internship.description}</p>
+                          {internship.date.includes('Ongoing') && (
+                            <p className={styles.ongoingBadge}>🔥 Currently Active</p>
+                          )}
+                          <button className={styles.viewInternship} suppressHydrationWarning>View Certificate</button>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             );
@@ -122,6 +199,11 @@ export default function Internships() {
           <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
             <span className={styles.closeBtn} onClick={closeModal}>&times;</span>
             <iframe src={selectedInternship} className={styles.pdfViewer} title="Internship Certificate" />
+            <div className={styles.modalInternshipInfo}>
+              <a href={selectedInternship} target="_blank" rel="noopener noreferrer" className={styles.downloadInternship}>
+                📥 Download PDF
+              </a>
+            </div>
           </div>
         </div>
       )}

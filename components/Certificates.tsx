@@ -1,44 +1,82 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import styles from '../styles/Certificates.module.css';
 
 export default function Certificates() {
   const [selectedCert, setSelectedCert] = useState<string | null>(null);
   const [pdfPreviews, setPdfPreviews] = useState<{ [key: string]: string }>({});
+  const [visibleCards, setVisibleCards] = useState<Set<string>>(new Set());
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const pdfLibLoadedRef = useRef(false);
 
   useEffect(() => {
-    // Load PDF.js library
-    const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-    script.async = true;
-    document.body.appendChild(script);
+    // Load PDF.js library once
+    if (!pdfLibLoadedRef.current) {
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+      script.async = true;
+      script.onload = () => {
+        if ((window as any).pdfjsLib) {
+          (window as any).pdfjsLib.GlobalWorkerOptions.workerSrc = 
+            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+          pdfLibLoadedRef.current = true;
+        }
+      };
+      document.body.appendChild(script);
+
+      return () => {
+        if (document.body.contains(script)) {
+          document.body.removeChild(script);
+        }
+      };
+    }
+  }, []);
+
+  // Intersection Observer for lazy loading
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const key = entry.target.getAttribute('data-cert-key');
+            if (key) {
+              setVisibleCards(prev => new Set(prev).add(key));
+            }
+          }
+        });
+      },
+      { rootMargin: '150px', threshold: 0.1 }
+    );
 
     return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
+      if (observerRef.current) {
+        observerRef.current.disconnect();
       }
     };
   }, []);
 
-  const generatePdfPreview = async (pdfUrl: string, key: string) => {
-    if (pdfPreviews[key]) return; // Already generated
+  const generatePdfPreview = useCallback(async (pdfUrl: string, key: string) => {
+    if (pdfPreviews[key]) return;
 
     try {
       const pdfjsLib = (window as any).pdfjsLib;
       if (!pdfjsLib) return;
 
-      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-      const loadingTask = pdfjsLib.getDocument(pdfUrl);
+      // Lightweight loading with optimizations
+      const loadingTask = pdfjsLib.getDocument({
+        url: pdfUrl,
+        cMapUrl: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/cmaps/',
+        cMapPacked: true,
+      });
       const pdf = await loadingTask.promise;
       const page = await pdf.getPage(1);
 
-      const scale = 1.5;
-      const viewport = page.getViewport({ scale });
+      // Reduced scale for faster loading
+      const viewport = page.getViewport({ scale: 0.75 });
 
       const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
+      const context = canvas.getContext('2d', { alpha: false });
       canvas.height = viewport.height;
       canvas.width = viewport.width;
 
@@ -47,12 +85,24 @@ export default function Certificates() {
         viewport: viewport,
       }).promise;
 
-      const imageUrl = canvas.toDataURL();
+      // Lower quality JPEG for faster loading
+      const imageUrl = canvas.toDataURL('image/jpeg', 0.65);
       setPdfPreviews(prev => ({ ...prev, [key]: imageUrl }));
+      
+      // Clean up
+      pdf.destroy();
     } catch (error) {
       console.error('Error generating PDF preview:', error);
     }
-  };
+  }, [pdfPreviews]);
+
+  // Intersection observer callback
+  const cardRef = useCallback((node: HTMLDivElement | null, key: string) => {
+    if (node && observerRef.current) {
+      node.setAttribute('data-cert-key', key);
+      observerRef.current.observe(node);
+    }
+  }, []);
 
   const certificateSections = {
     professional: {
@@ -147,19 +197,36 @@ export default function Certificates() {
                 const filePath = `/assets/certificates/${section.folder}/${filename}`;
                 const isPDF = filename.toLowerCase().endsWith('.pdf');
                 const previewKey = `${key}-${index}`;
+                const isVisible = visibleCards.has(previewKey);
                 
-                // Generate PDF preview when component mounts
-                if (isPDF && typeof window !== 'undefined') {
-                  setTimeout(() => generatePdfPreview(filePath, previewKey), 100 * index);
+                // Generate PDF preview only when visible and PDF.js is loaded
+                if (isPDF && typeof window !== 'undefined' && isVisible && !pdfPreviews[previewKey] && pdfLibLoadedRef.current) {
+                  setTimeout(() => generatePdfPreview(filePath, previewKey), 30);
                 }
                 
                 return (
-                  <div key={index} className={styles.certificateCard} onClick={() => openModal(filePath)} suppressHydrationWarning>
+                  <div 
+                    key={index} 
+                    ref={(node) => cardRef(node, previewKey)}
+                    className={styles.certificateCard} 
+                    onClick={() => openModal(filePath)} 
+                    suppressHydrationWarning
+                  >
                     {isPDF ? (
                       <div className={styles.pdfPreviewCard}>
-                        {pdfPreviews[previewKey] ? (
+                        {!isVisible ? (
+                          <div className={styles.pdfLoading}>
+                            <div className={styles.pdfIcon}>📄</div>
+                            <p className={styles.loadingText}>Scroll to load...</p>
+                          </div>
+                        ) : pdfPreviews[previewKey] ? (
                           <div className={styles.certificateImageWrapper}>
-                            <img src={pdfPreviews[previewKey]} alt={typeof file === 'object' ? file.title : 'Certificate'} className={styles.certificateImage} />
+                            <img 
+                              src={pdfPreviews[previewKey]} 
+                              alt={typeof file === 'object' ? file.title : 'Certificate'} 
+                              className={styles.certificateImage}
+                              loading="lazy"
+                            />
                             <div className={styles.overlay}>
                               <button className={styles.viewCertBtn} suppressHydrationWarning>View Full PDF</button>
                             </div>
@@ -167,7 +234,7 @@ export default function Certificates() {
                         ) : (
                           <div className={styles.pdfLoading}>
                             <div className={styles.pdfIcon}>📄</div>
-                            <p className={styles.loadingText}>Loading preview...</p>
+                            <p className={styles.loadingText}>Loading...</p>
                           </div>
                         )}
                         <p className={styles.pdfName}>{typeof file === 'object' ? file.title : filename.replace('.pdf', '')}</p>

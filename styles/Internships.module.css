@@ -1,7 +1,7 @@
-/* Internships Section Styles */
+/* Internships Section Styles - Beautiful UI/UX */
 .internshipsSection {
   min-height: 100vh;
-  padding: 80px 40px;
+  padding: 100px 40px;
   position: relative;
   z-index: 1;
 }
@@ -13,7 +13,7 @@
 
 .internshipsHeader {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 70px;
 }
 
 .title {
@@ -24,305 +24,338 @@
 }
 
 .highlight {
-  color: var(--arshad-color, #00ff00);
+  color: #00ff00;
   text-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
 }
 
 .subtitle {
   font-size: 1.2rem;
   color: rgba(255, 255, 255, 0.8);
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .internshipsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 35px;
+  padding: 20px 0;
 }
 
 .internshipCard {
-  background: rgba(0, 0, 0, 0.6);
-  border: 2px solid var(--project-cards-border-color, rgb(23, 240, 186));
+  position: relative;
+  background: rgba(0, 0, 0, 0.8);
   border-radius: 20px;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: pointer;
+  border: 2px solid rgba(0, 255, 0, 0.3);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
 }
 
 .internshipCard:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(23, 240, 186, 0.3);
-  border-color: var(--arshad-color, #00ff00);
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0, 255, 0, 0.4), 0 0 30px rgba(0, 255, 0, 0.2);
+  border-color: rgba(0, 255, 0, 0.7);
 }
 
-.pdfPreviewWrapper {
+.internshipImageContainer {
   position: relative;
   width: 100%;
-  height: 300px;
+  height: 400px;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.3);
 }
 
-.pdfPreview {
+.internshipLoader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  color: #00ff00;
+}
+
+.internshipLoader p {
+  font-size: 0.95rem;
+  color: #00ff00;
+  margin: 0;
+  font-weight: 500;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(0, 255, 0, 0.2);
+  border-top-color: #00ff00;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Placeholder for lazy loading */
+.internshipPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: rgba(0, 255, 0, 0.6);
+  height: 100%;
+}
+
+.placeholderIcon {
+  font-size: 3.5rem;
+  opacity: 0.7;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.internshipPlaceholder p {
+  font-size: 0.9rem;
+  color: rgba(0, 255, 0, 0.7);
+  margin: 0;
+}
+
+.internshipCanvas {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
+  object-fit: contain;
+  background: rgba(0, 0, 0, 0.9);
+  transition: transform 0.4s ease;
 }
 
-.internshipCard:hover .pdfPreview {
-  transform: scale(1.05);
+.internshipCard:hover .internshipCanvas {
+  transform: scale(1.08);
 }
 
-.previewOverlay {
+.internshipOverlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: linear-gradient(to bottom, 
+    rgba(0, 0, 0, 0.3) 0%, 
+    rgba(0, 0, 0, 0.7) 40%,
+    rgba(0, 0, 0, 0.95) 100%);
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
+  padding: 25px;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: all 0.4s ease;
 }
 
-.internshipCard:hover .previewOverlay {
+.internshipCard:hover .internshipOverlay {
   opacity: 1;
 }
 
-.viewFullBtn {
-  padding: 12px 24px;
-  background: var(--arshad-color, #00ff00);
-  color: #000;
-  border: none;
-  border-radius: 5px;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.pdfLoading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 300px;
-  padding: 20px;
+.internshipOverlayContent {
   text-align: center;
-  background: rgba(0, 0, 0, 0.3);
-}
-
-.loadingText {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.9rem;
-  margin-top: 10px;
-}
-
-.internshipImage {
-  width: 100%;
-  height: 200px;
-  position: relative;
-  overflow: hidden;
-  background: rgba(0, 0, 0, 0.3);
-}
-
-.cardImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.internshipCard:hover .cardImage {
-  transform: scale(1.1);
-}
-
-.internshipContent {
-  padding: 25px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.pdfIcon {
-  font-size: 4rem;
-  margin-bottom: 15px;
-}
-
-.internshipTitle {
-  font-size: 1.25rem;
-  color: var(--arshad-color, #00ff00);
-  margin-bottom: 10px;
-  font-weight: 600;
-  text-align: center;
-  line-height: 1.4;
-}
-
-.internshipOrg {
-  font-size: 1rem;
   color: #fff;
-  margin-bottom: 8px;
-  font-weight: 500;
-  text-align: center;
+  width: 100%;
 }
 
-.internshipDate {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 12px;
-  text-align: center;
+.internshipOverlayContent h3 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: #00ff00;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.internshipOverlayContent p {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.internshipOverlayContent p strong {
+  color: #00ff00;
+  font-weight: 600;
 }
 
 .internshipDesc {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.6;
-  margin-bottom: 15px;
-  text-align: center;
+  font-size: 0.9rem !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  margin-bottom: 15px !important;
+  line-height: 1.4;
 }
 
-.activeBadge {
+.ongoingBadge {
   display: inline-block;
-  padding: 6px 12px;
-  background: rgba(255, 69, 0, 0.2);
-  border: 1px solid #ff4500;
+  background: linear-gradient(135deg, #ff6b6b, #ff4444);
+  color: #fff !important;
+  padding: 6px 15px;
   border-radius: 20px;
-  color: #ff4500;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 15px;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  margin: 10px 0 15px 0 !important;
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 15px rgba(255, 68, 68, 0.5);
 }
 
-.viewBtn {
-  padding: 10px 24px;
-  background: var(--arshad-color, #00ff00);
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px rgba(255, 68, 68, 0.5);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(255, 68, 68, 0.8);
+  }
+}
+
+.viewInternship {
+  background: linear-gradient(135deg, #00ff00, #00cc00);
   color: #000;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: 600;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(0, 255, 0, 0.3);
   margin-top: 10px;
 }
 
-.viewBtn:hover {
-  background: transparent;
-  color: var(--arshad-color, #00ff00);
-  border: 2px solid var(--arshad-color, #00ff00);
-}
-
-.internshipInfo {
-  padding: 25px;
-}
-
-.internshipRole {
-  font-size: 1.4rem;
-  color: var(--arshad-color, #00ff00);
-  margin-bottom: 8px;
-  font-weight: 600;
-}
-
-.internshipCompany {
-  font-size: 1.1rem;
-  color: #fff;
-  margin-bottom: 5px;
-  font-weight: 500;
-}
-
-.internshipDuration {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 15px;
-}
-
-.internshipDescription {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.6;
-  margin-bottom: 20px;
-}
-
-.internshipSkills {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.skillBadge {
-  padding: 6px 14px;
-  background: rgba(0, 255, 0, 0.1);
-  border: 1px solid var(--arshad-color, #00ff00);
-  border-radius: 20px;
-  font-size: 0.85rem;
-  color: var(--arshad-color, #00ff00);
-  font-weight: 500;
+.viewInternship:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 255, 0, 0.5);
 }
 
 .modal {
+  display: block;
   position: fixed;
-  top: 0;
+  z-index: 99999;
   left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.85);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  padding: 20px;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.95);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .modalContent {
   position: relative;
-  width: 80%;
-  max-width: 1000px;
-  height: 85vh;
-  background: #000;
+  background-color: rgba(0, 0, 0, 0.95);
+  margin: 3% auto;
+  padding: 0;
+  border: 3px solid #00ff00;
   border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 25px 50px rgba(0, 255, 0, 0.2);
-  border: 2px solid var(--arshad-color, #00ff00);
+  width: 80%;
+  max-width: 900px;
+  box-shadow: 0 0 50px rgba(0, 255, 0, 0.5);
+  animation: slideDown 0.4s ease;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .closeBtn {
   position: absolute;
+  right: 20px;
   top: 15px;
-  right: 15px;
-  font-size: 2.5rem;
-  color: #fff;
+  color: #ff0000;
+  font-size: 40px;
+  font-weight: bold;
+  transition: all 0.3s ease;
   cursor: pointer;
-  z-index: 10000;
-  background: rgba(255, 0, 0, 0.8);
-  width: 45px;
-  height: 45px;
+  z-index: 100001;
+  background: rgba(0, 0, 0, 0.8);
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 2px solid #ff0000;
   line-height: 1;
-  transition: all 0.3s ease;
-  font-weight: bold;
-  border: 2px solid #fff;
 }
 
 .closeBtn:hover {
-  background: #ff0000;
   transform: rotate(90deg) scale(1.1);
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+  background: rgba(255, 0, 0, 0.2);
 }
 
 .pdfViewer {
   width: 100%;
-  height: 100%;
+  height: 80vh;
   border: none;
+  border-radius: 10px;
+  background: #fff;
 }
 
-/* Mobile Responsive */
-@media (max-width: 968px) {
+.modalInternshipInfo {
+  text-align: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.downloadInternship {
+  display: inline-block;
+  background: linear-gradient(135deg, #00ff00, #00cc00);
+  color: #000;
+  padding: 12px 30px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(0, 255, 0, 0.3);
+  margin-top: 10px;
+}
+
+.downloadInternship:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 255, 0, 0.5);
+}
+
+@media (max-width: 768px) {
   .internshipsSection {
-    padding: 60px 20px;
+    padding: 80px 20px;
+  }
+
+  .title {
+    font-size: 2rem;
   }
 
   .internshipsGrid {
@@ -330,24 +363,21 @@
     gap: 25px;
   }
 
-  .internshipCard {
-    border-radius: 15px;
-  }
-
-  .internshipInfo {
-    padding: 20px;
+  .internshipImageContainer {
+    height: 350px;
   }
 
   .modalContent {
     width: 95%;
-    height: 90vh;
+  }
+
+  .pdfViewer {
+    height: 60vh;
   }
 
   .closeBtn {
     width: 40px;
     height: 40px;
-    font-size: 2rem;
-    top: 10px;
-    right: 10px;
+    font-size: 30px;
   }
 }
