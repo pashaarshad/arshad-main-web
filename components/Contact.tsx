@@ -47,7 +47,7 @@ export default function Contact() {
                 <div className={styles.infoIcon}>📧</div>
                 <div>
                   <h4>Email</h4>
-                  <p>arshadali@example.com</p>
+                  <p>arshadpashaintern@gmail.com</p>
                 </div>
               </div>
               
@@ -55,7 +55,7 @@ export default function Contact() {
                 <div className={styles.infoIcon}>📱</div>
                 <div>
                   <h4>Phone</h4>
-                  <p>+91 XXXXX XXXXX</p>
+                  <p>+91 7760554350</p>
                 </div>
               </div>
               
