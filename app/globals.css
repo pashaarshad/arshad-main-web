@@ -3,6 +3,8 @@
   --project-cards-border-color: rgb(23, 240, 186);
   --background: #000000;
   --foreground: #ffffff;
+  --font-inter: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-poppins: 'Poppins', system-ui, -apple-system, sans-serif;
 }
 
 * {
@@ -20,7 +22,10 @@ body {
   height: auto;
   overflow-x: hidden;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 html {

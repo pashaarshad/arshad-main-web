@@ -1,5 +1,22 @@
 import type { Metadata } from "next";
+import { Inter, Poppins } from 'next/font/google';
 import "./globals.css";
+
+// Optimized font loading with next/font
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+  preload: true,
+});
+
+const poppins = Poppins({ 
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-poppins',
+  preload: true,
+});
 
 export const metadata: Metadata = {
   title: "Arshad Pasha - Full Stack Developer | Portfolio",
@@ -38,7 +55,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <head>
         <link rel="icon" href="/assets/images/aplogo.png" type="image/png" />
         <link
@@ -54,9 +71,11 @@ export default function RootLayout({
           sizes="32x32"
         />
         <link rel="apple-touch-icon" href="/assets/images/aplogo.png" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <meta name="theme-color" content="#000000" />
       </head>
-      <body>{children}</body>
+      <body className={poppins.className}>{children}</body>
     </html>
   );
 }

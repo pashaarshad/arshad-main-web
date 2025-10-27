@@ -1,11 +1,20 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../styles/Navbar.module.css';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -14,7 +23,7 @@ export default function Navbar() {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      const offset = 100; // Navbar height
+      const offset = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -32,112 +41,47 @@ export default function Navbar() {
   };
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       <nav className={styles.nav}>
-        <div className={styles.navLeft}>
-          <div className={styles.logo} onClick={scrollToTop} style={{ cursor: 'pointer' }}>
+        <div className={styles.navLeft} onClick={scrollToTop}>
+          <div className={styles.logo}>
             <Image
               src="/assets/images/logoarshad.jpg"
               alt="Arshad Logo"
-              width={100}
-              height={100}
+              width={60}
+              height={60}
               priority
+              quality={90}
             />
           </div>
         </div>
 
-        <span className={styles.menuBtn} onClick={toggleMenu}>
-          &#9776;
-        </span>
-        <span
-          className={`${styles.closeBtn} ${menuOpen ? styles.show : ''}`}
+        {/* Hamburger Menu - Top Right */}
+        <button 
+          className={`${styles.hamburger} ${menuOpen ? styles.open : ''}`} 
           onClick={toggleMenu}
+          aria-label="Toggle menu"
         >
-          &#9776;
-        </span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
 
-        <div className={styles.navRight}>
-          <ul id="menu" className={menuOpen ? styles.menuOpen : ''}>
-            <li>
-              <a 
-                href="#home" 
-                className={styles.active} 
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToTop();
-                }}
-              >
-                HOME
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#about" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('about');
-                }}
-              >
-                ABOUT
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#skills" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('skills');
-                }}
-              >
-                SKILLS
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#projects" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('projects');
-                }}
-              >
-                PROJECTS
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#certificates" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('certificates');
-                }}
-              >
-                CERTIFICATES
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#internships" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('internships');
-                }}
-              >
-                INTERNSHIPS
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#contact" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('contact');
-                }}
-              >
-                CONTACT
-              </a>
-            </li>
+        {/* Navigation Menu */}
+        <nav className={`${styles.navMenu} ${menuOpen ? styles.menuOpen : ''}`}>
+          <ul>
+            <li><a href="#home" onClick={(e) => { e.preventDefault(); scrollToTop(); }}>HOME</a></li>
+            <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}>ABOUT</a></li>
+            <li><a href="#skills" onClick={(e) => { e.preventDefault(); scrollToSection('skills'); }}>SKILLS</a></li>
+            <li><a href="#projects" onClick={(e) => { e.preventDefault(); scrollToSection('projects'); }}>PROJECTS</a></li>
+            <li><a href="#certificates" onClick={(e) => { e.preventDefault(); scrollToSection('certificates'); }}>CERTIFICATES</a></li>
+            <li><a href="#internships" onClick={(e) => { e.preventDefault(); scrollToSection('internships'); }}>INTERNSHIPS</a></li>
+            <li><a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>CONTACT</a></li>
           </ul>
-        </div>
+        </nav>
+
+        {/* Backdrop Overlay */}
+        {menuOpen && <div className={styles.backdrop} onClick={toggleMenu} />}
       </nav>
     </header>
   );
