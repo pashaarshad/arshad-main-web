@@ -1,0 +1,99 @@
+/* Navbar Styles */
+.header {
+  top: 0px;
+  height: 100px;
+  position: relative;
+  z-index: 100;
+}
+
+.nav {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+
+.navLeft {
+  float: left;
+  width: 20%;
+}
+
+.navRight {
+  float: right;
+  width: 50%;
+  padding: 30px;
+}
+
+.navRight ul {
+  display: flex;
+  justify-content: space-evenly;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navRight ul li a {
+  text-decoration: none;
+  color: #ffff;
+  transition: all 0.3s ease;
+}
+
+.navRight ul li a:hover,
+.navRight ul li a.active {
+  color: var(--arshad-color, #00ff00);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.menuBtn,
+.closeBtn {
+  font-size: 30px;
+  display: none;
+  color: white;
+  cursor: pointer;
+  float: right;
+}
+
+/* Mobile Menu */
+@media (max-width: 700px) {
+  .nav img {
+    height: 50px;
+    width: 50px;
+  }
+
+  .navRight ul {
+    display: none;
+  }
+
+  .menuBtn {
+    display: block;
+  }
+
+  .closeBtn {
+    display: none;
+  }
+
+  .closeBtn.show {
+    display: block;
+  }
+
+  .navRight ul.menuOpen {
+    display: block;
+    position: absolute;
+    line-height: 30px;
+    margin-left: 140px;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .navRight ul.menuOpen li {
+    margin: 10px 0;
+  }
+}
