@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/app/globals.css"],"sourcesContent":[":root {\n  --arshad-color: #00ff00;\n  --project-cards-border-color: rgb(23, 240, 186);\n  --background: #000000;\n  --foreground: #ffffff;\n  --font-inter: 'Inter', system-ui, -apple-system, sans-serif;\n  --font-poppins: 'Poppins', system-ui, -apple-system, sans-serif;\n}\n\n* {\n  padding: 0px;\n  margin: 0px;\n  box-sizing: border-box;\n}\n\nbody {\n  background-color: #000000;\n  background-size: cover;\n  background-repeat: no-repeat;\n  background-position: center;\n  position: relative;\n  height: auto;\n  overflow-x: hidden;\n  color: var(--foreground);\n  font-family: var(--font-poppins), Arial, Helvetica, sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  text-rendering: optimizeLegibility;\n}\n\nhtml {\n  scroll-behavior: smooth;\n}\n\na {\n  color: inherit;\n  text-decoration: none;\n}\n\nimg {\n  max-width: 100%;\n  height: auto;\n}\n"],"names":[],"mappings":"AAAA;;;;;;;;;AASA;;;;;;AAMA;;;;;;;;;;;;;;;AAeA;;;;AAIA;;;;;AAKA"}}]
-}
