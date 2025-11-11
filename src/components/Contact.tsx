@@ -34,7 +34,7 @@ const Contact = () => {
           Contact Me
         </h2>
         <div className="bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-xl">
-          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6" suppressHydrationWarning>
             <div>
               <label 
                 htmlFor="name" 
@@ -45,9 +45,11 @@ const Contact = () => {
               <input
                 type="text"
                 id="name"
+                name="name"
                 value={formData.name}
                 onChange={handleChange}
                 required
+                autoComplete="name"
                 className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
                 placeholder="Your Name"
               />
@@ -62,9 +64,11 @@ const Contact = () => {
               <input
                 type="email"
                 id="email"
+                name="email"
                 value={formData.email}
                 onChange={handleChange}
                 required
+                autoComplete="email"
                 className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
                 placeholder="your.email@example.com"
               />
@@ -78,6 +82,7 @@ const Contact = () => {
               </label>
               <textarea
                 id="message"
+                name="message"
                 rows={5}
                 value={formData.message}
                 onChange={handleChange}

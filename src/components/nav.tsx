@@ -246,7 +246,7 @@ const Navbar = () => {
 
   return (
     <div className="fixed top-4 left-0 right-0 z-50 w-full px-4">
-      <nav className="w-full max-w-7xl mx-auto flex items-center justify-between md:justify-center md:gap-3">
+      <nav className="w-full max-w-7xl mx-auto flex items-center justify-between px-6 py-3 bg-gray-900/95 backdrop-blur-md border border-gray-700 rounded-full shadow-2xl">
         {/* Logo */}
         <a
           href="#home"
@@ -254,36 +254,36 @@ const Navbar = () => {
           aria-label="Home"
           onMouseEnter={handleLogoEnter}
           ref={logoRef}
-          className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden bg-white w-[48px] h-[48px] hover:shadow-lg transition-shadow border-2 border-gray-200"
+          className="inline-flex items-center justify-center overflow-visible w-[64px] h-[64px] hover:scale-110 transition-transform"
         >
           <Image 
-            src="/Varsal.svg" 
+            src="/ap_logo.png" 
             alt="Logo" 
-            width={32} 
-            height={32} 
+            width={64} 
+            height={64} 
             ref={logoImgRef}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
           />
         </a>
 
         {/* Desktop Navigation */}
         <div
           ref={navItemsRef}
-          className="relative items-center rounded-full hidden md:flex bg-white h-[48px] shadow-lg border-2 border-gray-200"
+          className="relative items-center hidden md:flex"
         >
-          <ul className="list-none flex items-stretch m-0 p-[3px] h-full gap-[3px]">
+          <ul className="list-none flex items-stretch m-0 h-full gap-6">
             {navItems.map((item, i) => {
               const isActive = activeIndex === i;
 
               return (
-                <li key={item.href} className="flex h-full">
+                <li key={item.href} className="flex h-full items-center">
                   <a
                     href={item.href}
                     onClick={(e) => handleScroll(e, item.href, i)}
-                    className={`relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-full box-border font-semibold text-[14px] leading-[0] uppercase tracking-[0.5px] whitespace-nowrap cursor-pointer px-5 transition-colors duration-300 ${
+                    className={`relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-full box-border font-semibold text-[13px] leading-[0] uppercase tracking-[0.8px] whitespace-nowrap cursor-pointer px-5 py-2 transition-colors duration-300 ${
                       isActive 
-                        ? 'bg-gray-900 text-yellow-400' 
-                        : 'bg-gray-50 text-gray-800 hover:bg-gray-100'
+                        ? 'bg-gray-800 text-yellow-400' 
+                        : 'bg-transparent text-gray-300 hover:bg-gray-800 hover:text-white'
                     }`}
                     onMouseEnter={() => handleEnter(i)}
                     onMouseLeave={() => handleLeave(i)}
@@ -341,18 +341,18 @@ const Navbar = () => {
           onClick={toggleMobileMenu}
           aria-label="Toggle menu"
           aria-expanded={isMobileMenuOpen}
-          className="md:hidden rounded-full flex flex-col items-center justify-center gap-1.5 cursor-pointer p-0 bg-white w-[48px] h-[48px] shadow-lg border-2 border-gray-200"
+          className="md:hidden rounded-full flex flex-col items-center justify-center gap-1.5 cursor-pointer p-0 bg-gray-800 w-[48px] h-[48px] shadow-lg border border-gray-700"
         >
-          <span className="hamburger-line w-5 h-0.5 rounded origin-center bg-gray-800" />
-          <span className="hamburger-line w-5 h-0.5 rounded origin-center bg-gray-800" />
-          <span className="hamburger-line w-5 h-0.5 rounded origin-center bg-gray-800" />
+          <span className="hamburger-line w-5 h-0.5 rounded origin-center bg-gray-300" />
+          <span className="hamburger-line w-5 h-0.5 rounded origin-center bg-gray-300" />
+          <span className="hamburger-line w-5 h-0.5 rounded origin-center bg-gray-300" />
         </button>
       </nav>
 
       {/* Mobile Menu */}
       <div
         ref={mobileMenuRef}
-        className="md:hidden fixed top-[68px] left-4 right-4 rounded-3xl shadow-2xl bg-white backdrop-blur-lg origin-top border-2 border-gray-200"
+        className="md:hidden fixed top-[72px] left-4 right-4 rounded-2xl shadow-2xl bg-gray-800/95 backdrop-blur-lg origin-top border border-gray-700"
       >
         <ul className="list-none m-0 p-2 flex flex-col gap-1">
           {navItems.map((item, index) => (
@@ -363,7 +363,7 @@ const Navbar = () => {
                   handleScroll(e, item.href, index);
                   toggleMobileMenu();
                 }}
-                className="block py-3 px-5 text-base font-semibold rounded-full bg-gray-50 text-gray-800 hover:bg-blue-500 hover:text-white transition-all duration-200"
+                className="block py-3 px-5 text-base font-semibold rounded-full bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white transition-all duration-200"
               >
                 {item.name}
               </a>

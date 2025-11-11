@@ -19,6 +19,10 @@ export const metadata: Metadata = {
   authors: [{ name: "Your Name" }],
   viewport: "width=device-width, initial-scale=1",
   themeColor: "#3B82F6",
+  icons: {
+    icon: "/ap_logo.png",
+    apple: "/ap_logo.png",
+  },
 };
 
 export default function RootLayout({
