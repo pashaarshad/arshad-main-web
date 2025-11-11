@@ -124,7 +124,40 @@ const Navbar = () => {
       });
     }
 
-    return () => window.removeEventListener('resize', onResize);
+    // Intersection Observer to detect active section
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.id;
+          const index = navItems.findIndex(item => item.href === `#${sectionId}`);
+          if (index !== -1) {
+            setActiveIndex(index);
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Observe all sections
+    navItems.forEach(item => {
+      const sectionId = item.href.replace('#', '');
+      const section = document.getElementById(sectionId);
+      if (section) {
+        observer.observe(section);
+      }
+    });
+
+    return () => {
+      window.removeEventListener('resize', onResize);
+      observer.disconnect();
+    };
   }, []);
 
   const handleEnter = (i: number) => {
@@ -245,16 +278,20 @@ const Navbar = () => {
                   <a
                     href={item.href}
                     onClick={(e) => handleScroll(e, item.href, i)}
-                    className="relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-full box-border font-semibold text-[14px] leading-[0] uppercase tracking-[0.5px] whitespace-nowrap cursor-pointer px-5 bg-gray-50 text-gray-800"
+                    className={`relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-full box-border font-semibold text-[14px] leading-[0] uppercase tracking-[0.5px] whitespace-nowrap cursor-pointer px-5 transition-colors duration-300 ${
+                      isActive 
+                        ? 'bg-gray-900 text-yellow-400' 
+                        : 'bg-gray-50 text-gray-800 hover:bg-gray-100'
+                    }`}
                     onMouseEnter={() => handleEnter(i)}
                     onMouseLeave={() => handleLeave(i)}
                   >
-                    {/* Pixel Effect Canvas */}
+                    {/* Pixel Effect Canvas - Always active for current section */}
                     <PixelEffect 
-                      isActive={hoveredIndex === i}
+                      isActive={isActive || hoveredIndex === i}
                       gap={3}
-                      speed={60}
-                      colors="#3b82f6,#60a5fa,#93c5fd"
+                      speed={isActive ? 40 : 60}
+                      colors={isActive ? "#fbbf24,#f59e0b,#d97706" : "#3b82f6,#60a5fa,#93c5fd"}
                     />
                     <span
                       className="absolute left-1/2 bottom-0 rounded-full z-[1] block pointer-events-none bg-blue-600"
@@ -266,13 +303,17 @@ const Navbar = () => {
                     />
                     <span className="relative inline-block leading-[1] z-[2]">
                       <span
-                        className="pill-label relative z-[2] inline-block leading-[1]"
+                        className={`pill-label relative z-[2] inline-block leading-[1] ${
+                          isActive ? 'text-yellow-400 font-bold' : ''
+                        }`}
                         style={{ willChange: 'transform' }}
                       >
                         {item.name}
                       </span>
                       <span
-                        className="pill-label-hover absolute left-0 top-0 z-[3] inline-block text-white"
+                        className={`pill-label-hover absolute left-0 top-0 z-[3] inline-block ${
+                          isActive ? 'text-yellow-300' : 'text-white'
+                        }`}
                         style={{ willChange: 'transform, opacity' }}
                         aria-hidden="true"
                       >
@@ -281,7 +322,7 @@ const Navbar = () => {
                     </span>
                     {isActive && (
                       <span
-                        className="absolute left-1/2 -bottom-[6px] -translate-x-1/2 w-2 h-2 rounded-full z-[4] bg-blue-500"
+                        className="absolute left-1/2 -bottom-[6px] -translate-x-1/2 w-2 h-2 rounded-full z-[4] bg-yellow-400 animate-pulse"
                         aria-hidden="true"
                       />
                     )}
