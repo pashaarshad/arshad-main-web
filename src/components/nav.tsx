@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
+import PixelEffect from './PixelEffect';
 
 const Navbar = () => {
   const navItems = [
@@ -17,6 +18,7 @@ const Navbar = () => {
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const circleRefs = useRef<Array<HTMLSpanElement | null>>([]);
   const tlRefs = useRef<Array<gsap.core.Timeline | null>>([]);
   const activeTweenRefs = useRef<Array<gsap.core.Tween | null>>([]);
@@ -126,6 +128,7 @@ const Navbar = () => {
   }, []);
 
   const handleEnter = (i: number) => {
+    setHoveredIndex(i);
     const tl = tlRefs.current[i];
     if (!tl) return;
     activeTweenRefs.current[i]?.kill();
@@ -137,6 +140,7 @@ const Navbar = () => {
   };
 
   const handleLeave = (i: number) => {
+    setHoveredIndex(null);
     const tl = tlRefs.current[i];
     if (!tl) return;
     activeTweenRefs.current[i]?.kill();
@@ -245,6 +249,13 @@ const Navbar = () => {
                     onMouseEnter={() => handleEnter(i)}
                     onMouseLeave={() => handleLeave(i)}
                   >
+                    {/* Pixel Effect Canvas */}
+                    <PixelEffect 
+                      isActive={hoveredIndex === i}
+                      gap={3}
+                      speed={60}
+                      colors="#3b82f6,#60a5fa,#93c5fd"
+                    />
                     <span
                       className="absolute left-1/2 bottom-0 rounded-full z-[1] block pointer-events-none bg-blue-600"
                       style={{ willChange: 'transform' }}
