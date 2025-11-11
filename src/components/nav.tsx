@@ -207,11 +207,13 @@ const Navbar = () => {
     if (hamburger) {
       const lines = hamburger.querySelectorAll('.hamburger-line');
       if (newState) {
-        gsap.to(lines[0], { rotation: 45, y: 6, duration: 0.3, ease: 'power3.easeOut' });
-        gsap.to(lines[1], { rotation: -45, y: -6, duration: 0.3, ease: 'power3.easeOut' });
+        gsap.to(lines[0], { rotation: 45, y: 8, duration: 0.3, ease: 'power3.easeOut' });
+        gsap.to(lines[1], { opacity: 0, duration: 0.2, ease: 'power3.easeOut' });
+        gsap.to(lines[2], { rotation: -45, y: -8, duration: 0.3, ease: 'power3.easeOut' });
       } else {
         gsap.to(lines[0], { rotation: 0, y: 0, duration: 0.3, ease: 'power3.easeOut' });
-        gsap.to(lines[1], { rotation: 0, y: 0, duration: 0.3, ease: 'power3.easeOut' });
+        gsap.to(lines[1], { opacity: 1, duration: 0.2, ease: 'power3.easeOut' });
+        gsap.to(lines[2], { rotation: 0, y: 0, duration: 0.3, ease: 'power3.easeOut' });
       }
     }
 
@@ -243,8 +245,8 @@ const Navbar = () => {
   };
 
   return (
-    <div className="fixed top-4 left-0 right-0 z-50 w-full flex justify-center px-4">
-      <nav className="flex items-center justify-center gap-3">
+    <div className="fixed top-4 left-0 right-0 z-50 w-full px-4">
+      <nav className="w-full max-w-7xl mx-auto flex items-center justify-between md:justify-center md:gap-3">
         {/* Logo */}
         <a
           href="#home"
@@ -339,8 +341,9 @@ const Navbar = () => {
           onClick={toggleMobileMenu}
           aria-label="Toggle menu"
           aria-expanded={isMobileMenuOpen}
-          className="md:hidden rounded-full border-0 flex flex-col items-center justify-center gap-1.5 cursor-pointer p-0 relative bg-white w-[48px] h-[48px] shadow-lg absolute right-4 border-2 border-gray-200"
+          className="md:hidden rounded-full flex flex-col items-center justify-center gap-1.5 cursor-pointer p-0 bg-white w-[48px] h-[48px] shadow-lg border-2 border-gray-200"
         >
+          <span className="hamburger-line w-5 h-0.5 rounded origin-center bg-gray-800" />
           <span className="hamburger-line w-5 h-0.5 rounded origin-center bg-gray-800" />
           <span className="hamburger-line w-5 h-0.5 rounded origin-center bg-gray-800" />
         </button>
