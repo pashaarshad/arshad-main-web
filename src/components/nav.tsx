@@ -246,7 +246,7 @@ const Navbar = () => {
 
   return (
     <div className="fixed top-4 left-0 right-0 z-50 w-full px-4">
-      <nav className="w-full max-w-7xl mx-auto flex items-center justify-between px-6 py-3 bg-gray-900/95 backdrop-blur-md border border-gray-700 rounded-full shadow-2xl">
+      <nav className="w-full max-w-7xl mx-auto flex items-center justify-between px-4 py-2 bg-gray-900/95 backdrop-blur-md border border-gray-700 rounded-full shadow-2xl">
         {/* Logo */}
         <a
           href="#home"
