@@ -1,0 +1,30 @@
+/* [next]/internal/font/google/cherry_cream_soda_aebf860a.module.css [app-client] (css) */
+@font-face {
+  font-family: Cherry Cream Soda;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../media/8dfce5cc0406c7c6-s.p.5a5ae0ef.woff2") format("woff2");
+  unicode-range: U+??, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: Cherry Cream Soda Fallback;
+  src: local(Arial);
+  ascent-override: 78.96%;
+  descent-override: 19.39%;
+  line-gap-override: 2.28%;
+  size-adjust: 124.42%;
+}
+
+.cherry_cream_soda_aebf860a-module__1Sd_Aq__className {
+  font-family: Cherry Cream Soda, Cherry Cream Soda Fallback;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.cherry_cream_soda_aebf860a-module__1Sd_Aq__variable {
+  --font-cherry-cream: "Cherry Cream Soda", "Cherry Cream Soda Fallback";
+}
+
+/*# sourceMappingURL=%5Bnext%5D_internal_font_google_cherry_cream_soda_aebf860a_module_css_bad6b30c._.single.css.map*/
