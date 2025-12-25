@@ -229,15 +229,15 @@ const About = () => {
             </div>
             <ul className="space-y-2 text-sm">
               <li className="flex items-start gap-2">
-                <span className="text-yellow-600 dark:text-yellow-400 mt-1">★</span>
+                <span className="golden-text mt-1">★</span>
                 <span className="text-gray-800 dark:text-gray-300">Education Vice-Captain – PU College</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-yellow-600 dark:text-yellow-400 mt-1">★</span>
+                <span className="golden-text mt-1">★</span>
                 <span className="text-gray-800 dark:text-gray-300">Class Representative – Degree College</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-yellow-600 dark:text-yellow-400 mt-1">★</span>
+                <span className="golden-text mt-1">★</span>
                 <span className="text-gray-800 dark:text-gray-300">Open-Source Contributor: SSOC</span>
               </li>
             </ul>
@@ -255,15 +255,15 @@ const About = () => {
             </div>
             <ul className="space-y-2 text-sm">
               <li className="flex items-start gap-2">
-                <span className="mt-1">🏆</span>
+                <span className="golden-text mt-1">🏆</span>
                 <span className="text-gray-800 dark:text-gray-300">1st Prize – Inter-College Website Development</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="mt-1">🏆</span>
+                <span className="golden-text mt-1">🏆</span>
                 <span className="text-gray-800 dark:text-gray-300">2nd Prize – PU Level Web Development</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="mt-1">🏆</span>
+                <span className="golden-text mt-1">🏆</span>
                 <span className="text-gray-800 dark:text-gray-300">Infosys Global Hackathon Participant</span>
               </li>
             </ul>
