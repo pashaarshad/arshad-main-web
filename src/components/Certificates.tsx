@@ -37,7 +37,7 @@ const Certificates = () => {
     { filename: 'AI Foundations Associate.pdf', title: 'AI Foundations Associate', folder: 'main_professional_certifications', category: 'professional', organization: 'Oracle' },
     { filename: 'Data Science Professional.pdf', title: 'Data Science Professional', folder: 'main_professional_certifications', category: 'professional', organization: 'Oracle' },
     { filename: 'Generative AI Professional_arshad.pdf', title: 'Generative AI Professional', folder: 'main_professional_certifications', category: 'professional', organization: 'Oracle' },
-    
+
     // Course Certifications
     { filename: 'Agile Scrum in Practice.pdf', title: 'Agile Scrum in Practice', folder: 'Cources', category: 'courses', description: 'Professional development course' },
     { filename: 'Introduction to Artificial Intelligence.pdf', title: 'Introduction to Artificial Intelligence', folder: 'Cources', category: 'courses', description: 'AI fundamentals course' },
@@ -48,14 +48,14 @@ const Certificates = () => {
     { filename: '1-5fa0208d-f0b5-4247-ab58-2f5f0d9aa895.pdf', title: 'Online Course Certificate', folder: 'Cources', category: 'courses' },
     { filename: '1-92b0c280-65cc-4d41-8dd9-a58dd785278d.pdf', title: 'Professional Course Certificate', folder: 'Cources', category: 'courses' },
     { filename: '1-a45203d8-42a8-4be4-a6f3-445c419e3b3e.pdf', title: 'Technical Course Certificate', folder: 'Cources', category: 'courses' },
-    
+
     // Hackathon Certificates
     { filename: 'photo_5_2025-09-09_23-04-19.jpg', title: 'Hackathon Achievement 1', folder: 'Hackthons', category: 'hackathons', description: 'Programming competition' },
     { filename: 'photo_6_2025-09-09_23-04-19.jpg', title: 'Hackathon Achievement 2', folder: 'Hackthons', category: 'hackathons', description: 'Coding challenge' },
     { filename: 'photo_7_2025-09-09_23-04-19.jpg', title: 'Hackathon Achievement 3', folder: 'Hackthons', category: 'hackathons', description: 'Tech competition' },
     { filename: 'photo_8_2025-09-09_23-04-19.jpg', title: 'Hackathon Achievement 4', folder: 'Hackthons', category: 'hackathons', description: 'Innovation challenge' },
     { filename: 'photo_10_2025-09-09_23-04-19.jpg', title: 'Hackathon Achievement 5', folder: 'Hackthons', category: 'hackathons', description: 'Development marathon' },
-    
+
     // College/Academic Certificates
     { filename: 'photo_13_2025-09-09_23-04-19.jpg', title: 'Academic Achievement 1', folder: 'College', category: 'college' },
     { filename: 'photo_14_2025-09-09_23-04-19.jpg', title: 'Academic Achievement 2', folder: 'College', category: 'college' },
@@ -67,7 +67,7 @@ const Certificates = () => {
     { filename: 'photo_20_2025-09-09_23-04-19.jpg', title: 'Academic Achievement 8', folder: 'College', category: 'college' },
     { filename: 'photo_21_2025-09-09_23-04-19.jpg', title: 'Academic Achievement 9', folder: 'College', category: 'college' },
     { filename: 'photo_22_2025-09-09_23-04-19.jpg', title: 'Academic Achievement 10', folder: 'College', category: 'college' },
-    
+
     // Other/Awards & Competitions
     { filename: 'RBI Quize.jpg', title: 'RBI Quiz Certificate', folder: 'Other', category: 'other', description: 'State level competition' },
     { filename: 'Eassy English.jpg', title: 'Essay Competition Certificate', folder: 'Other', category: 'other', description: 'English essay competition' },
@@ -81,7 +81,7 @@ const Certificates = () => {
       script.async = true;
       script.onload = () => {
         if ((window as any).pdfjsLib) {
-          (window as any).pdfjsLib.GlobalWorkerOptions.workerSrc = 
+          (window as any).pdfjsLib.GlobalWorkerOptions.workerSrc =
             'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
           pdfLibLoadedRef.current = true;
         }
@@ -148,7 +148,7 @@ const Certificates = () => {
         // localStorage might be full, clear old data
         try {
           localStorage.removeItem('pdfPreviewsCache');
-        } catch {}
+        } catch { }
       }
     }
   }, [pdfPreviews]);
@@ -208,8 +208,8 @@ const Certificates = () => {
   };
 
   return (
-    <section 
-      id="certificates" 
+    <section
+      id="certificates"
       className="min-h-screen bg-gradient-to-br from-gradient-start via-bg-secondary to-gradient-end py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 transition-colors duration-300"
     >
       <div className="max-w-7xl mx-auto w-full">
@@ -236,8 +236,8 @@ const Certificates = () => {
                 className={`
                   flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium
                   transition-all duration-300 border
-                  ${activeCategory === cat.key 
-                    ? 'bg-accent-secondary text-black border-accent-secondary shadow-lg shadow-accent-secondary/30 scale-105' 
+                  ${activeCategory === cat.key
+                    ? 'bg-accent-secondary text-black border-accent-secondary shadow-lg shadow-accent-secondary/30 scale-105'
                     : 'bg-card-bg text-text-secondary border-card-border hover:bg-card-bg-hover hover:text-text-primary hover:border-accent-secondary/50'
                   }
                 `}
@@ -249,7 +249,7 @@ const Certificates = () => {
               </button>
             ))}
           </div>
-          
+
           <div className="text-center mt-4">
             <span className="text-text-tertiary text-sm">
               Showing {displayedCertificates.length} of {filteredCertificates.length} certificates
@@ -264,13 +264,13 @@ const Certificates = () => {
             const isPDF = cert.filename.toLowerCase().endsWith('.pdf');
             const previewKey = `cert-${cert.folder}-${index}`;
             const isVisible = visibleCards.has(previewKey);
-            
+
             if (isPDF && typeof window !== 'undefined' && isVisible && !pdfPreviews[previewKey] && pdfLibLoadedRef.current) {
               setTimeout(() => generatePdfPreview(filePath, previewKey), 50);
             }
-            
+
             return (
-              <div 
+              <div
                 key={index}
                 ref={(node) => cardRef(node, previewKey)}
                 className="group bg-card-bg backdrop-blur-sm border border-card-border rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-accent-secondary/10 transition-all duration-500 hover:-translate-y-2 cursor-pointer"
@@ -281,33 +281,41 @@ const Certificates = () => {
                 <div className="relative h-48 sm:h-56 overflow-hidden">
                   {/* Category Gradient Overlay */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${getCategoryColor(cert.category)} opacity-10 group-hover:opacity-20 transition-opacity duration-300`} />
-                  
+
                   {isPDF ? (
                     !isVisible ? (
-                      <div className="flex items-center justify-center h-full bg-gradient-to-br from-accent-primary/10 to-accent-secondary/10">
-                        <div className="text-center">
-                          <div className="text-5xl mb-3 animate-spin" style={{ animationDuration: '2s' }}>⏳</div>
-                          <p className="text-text-secondary text-sm font-medium">Scroll to load...</p>
+                      <div className="flex items-center justify-center h-full bg-gradient-to-br from-bg-secondary/50 to-bg-tertiary/50 backdrop-blur-sm">
+                        <div className="relative flex flex-col items-center">
+                          <div className="relative w-16 h-16 mb-4">
+                            <div className="absolute inset-0 border-4 border-accent-primary/50 border-t-accent-primary border-r-transparent border-l-transparent rounded-full animate-spin"></div>
+                            <div className="absolute inset-2 border-4 border-accent-secondary/50 border-b-accent-secondary border-t-transparent border-l-transparent rounded-full animate-spin-slow-reverse"></div>
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-accent-primary rounded-full animate-pulse shadow-[0_0_10px_var(--accent-primary)]"></div>
+                          </div>
+                          <p className="text-accent-secondary text-xs font-mono tracking-widest uppercase animate-pulse">Initializing System...</p>
                         </div>
                       </div>
                     ) : pdfPreviews[previewKey] ? (
-                      <img 
-                        src={pdfPreviews[previewKey]} 
+                      <img
+                        src={pdfPreviews[previewKey]}
                         alt={cert.title}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         loading="lazy"
                       />
                     ) : (
-                      <div className="flex items-center justify-center h-full bg-gradient-to-br from-accent-primary/10 to-accent-secondary/10">
-                        <div className="text-center">
-                          <div className="text-5xl mb-3 animate-spin" style={{ animationDuration: '2s' }}>⏳</div>
-                          <p className="text-text-secondary text-sm font-medium">Loading preview...</p>
+                      <div className="flex items-center justify-center h-full bg-gradient-to-br from-bg-secondary/50 to-bg-tertiary/50 backdrop-blur-sm">
+                        <div className="relative flex flex-col items-center">
+                          <div className="relative w-16 h-16 mb-4">
+                            <div className="absolute inset-0 border-4 border-accent-primary/50 border-t-accent-primary border-r-transparent border-l-transparent rounded-full animate-spin"></div>
+                            <div className="absolute inset-2 border-4 border-accent-secondary/50 border-b-accent-secondary border-t-transparent border-l-transparent rounded-full animate-spin-slow-reverse"></div>
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-accent-primary rounded-full animate-pulse shadow-[0_0_10px_var(--accent-primary)]"></div>
+                          </div>
+                          <p className="text-accent-primary text-xs font-mono tracking-widest uppercase animate-pulse">Decrypting Data...</p>
                         </div>
                       </div>
                     )
                   ) : (
-                    <Image 
-                      src={filePath} 
+                    <Image
+                      src={filePath}
                       alt={cert.title}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -315,7 +323,7 @@ const Certificates = () => {
                       loading="lazy"
                     />
                   )}
-                  
+
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
                     <button
@@ -329,14 +337,14 @@ const Certificates = () => {
                       View Certificate
                     </button>
                   </div>
-                  
+
                   {/* Category Badge */}
                   <div className="absolute top-3 left-3">
                     <span className={`bg-gradient-to-r ${getCategoryColor(cert.category)} text-white text-xs px-3 py-1 rounded-full font-medium shadow-lg`}>
                       {categories.find(c => c.key === cert.category)?.icon} {categories.find(c => c.key === cert.category)?.label}
                     </span>
                   </div>
-                  
+
                   {/* File Type Badge */}
                   <div className="absolute top-3 right-3">
                     <span className={`${isPDF ? 'bg-red-500' : 'bg-green-500'} text-white text-xs px-2 py-1 rounded-full font-medium`}>
@@ -396,11 +404,11 @@ const Certificates = () => {
 
       {/* Certificate Modal */}
       {selectedCert && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
           onClick={closeModal}
         >
-          <div 
+          <div
             className="relative bg-bg-secondary border border-card-border rounded-2xl max-w-5xl w-full max-h-[95vh] overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
@@ -446,18 +454,18 @@ const Certificates = () => {
             {/* Certificate Content */}
             <div className="h-[80vh] overflow-auto">
               {selectedCert.toLowerCase().endsWith('.pdf') ? (
-                <iframe 
-                  src={selectedCert} 
-                  className="w-full h-full" 
+                <iframe
+                  src={selectedCert}
+                  className="w-full h-full"
                   title="Certificate PDF"
                 />
               ) : (
                 <div className="flex items-center justify-center p-4 min-h-full">
-                  <Image 
-                    src={selectedCert} 
-                    alt="Certificate" 
-                    width={900} 
-                    height={650} 
+                  <Image
+                    src={selectedCert}
+                    alt="Certificate"
+                    width={900}
+                    height={650}
                     className="max-w-full h-auto object-contain rounded-lg shadow-lg"
                   />
                 </div>
