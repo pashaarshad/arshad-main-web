@@ -258,10 +258,10 @@ const Skills = () => {
           <div ref={contentRef} className="space-y-8">
             <div className="space-y-4">
               <span className="text-accent-primary font-semibold text-lg uppercase tracking-wider">Services</span>
-              <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white leading-tight">
+              <h3 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
                 I offer a Full-cycle of <span className="text-accent-secondary">Web Development</span> Services
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
+              <p className="text-gray-200 text-lg leading-relaxed">
                 With more than <span className="text-accent-primary font-semibold">1+ years</span> of experience,
                 I have been accomplishing projects with modern Web Development, new generation programming languages,
                 and Full Stack development to deliver cost-effective solutions.
@@ -279,9 +279,9 @@ const Skills = () => {
                       className="w-7 h-7"
                     />
                   </div>
-                  <h4 className="font-bold text-gray-900 dark:text-white">Full Stack Development</h4>
+                  <h4 className="font-bold text-white">Full Stack Development</h4>
                 </div>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">End-to-end web applications with React, Next.js, and Node.js</p>
+                <p className="text-gray-200 text-sm">End-to-end web applications with React, Next.js, and Node.js</p>
               </div>
 
               <div className="bg-card-bg backdrop-blur-sm border border-card-border rounded-xl p-5 hover:scale-105 transition-all duration-300 group shadow-lg">
@@ -293,9 +293,9 @@ const Skills = () => {
                       className="w-7 h-7"
                     />
                   </div>
-                  <h4 className="font-bold text-gray-900 dark:text-white">UI/UX Design</h4>
+                  <h4 className="font-bold text-white">UI/UX Design</h4>
                 </div>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">Beautiful, responsive interfaces with modern design principles</p>
+                <p className="text-gray-200 text-sm">Beautiful, responsive interfaces with modern design principles</p>
               </div>
 
               <div className="bg-card-bg backdrop-blur-sm border border-card-border rounded-xl p-5 hover:scale-105 transition-all duration-300 group shadow-lg">
@@ -307,9 +307,9 @@ const Skills = () => {
                       className="w-7 h-7"
                     />
                   </div>
-                  <h4 className="font-bold text-gray-900 dark:text-white">AI/ML Integration</h4>
+                  <h4 className="font-bold text-white">AI/ML Integration</h4>
                 </div>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">Integrating AI APIs and ML models into applications</p>
+                <p className="text-gray-200 text-sm">Integrating AI APIs and ML models into applications</p>
               </div>
 
               <div className="bg-card-bg backdrop-blur-sm border border-card-border rounded-xl p-5 hover:scale-105 transition-all duration-300 group shadow-lg">
@@ -321,9 +321,9 @@ const Skills = () => {
                       className="w-7 h-7"
                     />
                   </div>
-                  <h4 className="font-bold text-gray-900 dark:text-white">Cybersecurity</h4>
+                  <h4 className="font-bold text-white">Cybersecurity</h4>
                 </div>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">Secure applications with encryption and ethical hacking practices</p>
+                <p className="text-gray-200 text-sm">Secure applications with encryption and ethical hacking practices</p>
               </div>
             </div>
           </div>

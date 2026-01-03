@@ -14,11 +14,11 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 // Get initial theme without causing hydration mismatch
 const getInitialTheme = (): Theme => {
   if (typeof window === 'undefined') return 'dark';
-  
+
   try {
     const savedTheme = localStorage.getItem('theme') as Theme | null;
     if (savedTheme) return savedTheme;
-    
+
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     return prefersDark ? 'dark' : 'light';
   } catch {
