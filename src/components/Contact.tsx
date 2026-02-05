@@ -78,22 +78,13 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const submitData = {
-      access_key: "45f83e32-5806-4fe1-b89b-3d6803f0a353",
-      name: formData.name,
-      email: formData.email,
-      message: formData.message,
-      subject: "New Contact Form Submission from Portfolio",
-    };
-
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(submitData)
+        body: JSON.stringify(formData),
       });
 
       const result = await response.json();
@@ -102,9 +93,11 @@ const Contact = () => {
         setShowSuccess(true);
         setFormData({ name: '', email: '', message: '' });
       } else {
+        console.error('Submission failed:', result.error);
         alert('Something went wrong. Please try again.');
       }
-    } catch {
+    } catch (error) {
+      console.error('Network error:', error);
       alert('Failed to send message. Please try again.');
     } finally {
       setIsSubmitting(false);

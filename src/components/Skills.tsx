@@ -16,6 +16,7 @@ const techIcons = [
   { name: 'C++', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg' },
   { name: 'C#', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg' },
   { name: 'VB.NET', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualbasic/visualbasic-original.svg' },
+  { name: 'Solidity', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg' },
 
   // Web Technologies & Frameworks
   { name: 'HTML5', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
@@ -324,6 +325,20 @@ const Skills = () => {
                   <h4 className="font-bold text-white">Cybersecurity</h4>
                 </div>
                 <p className="text-gray-200 text-sm">Secure applications with encryption and ethical hacking practices</p>
+              </div>
+
+              <div className="bg-card-bg backdrop-blur-sm border border-card-border rounded-xl p-5 hover:scale-105 transition-all duration-300 group shadow-lg">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="bg-gradient-to-br from-indigo-500 to-indigo-700 p-2.5 rounded-lg group-hover:scale-110 transition-transform shadow-md">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg"
+                      alt="Web3"
+                      className="w-7 h-7"
+                    />
+                  </div>
+                  <h4 className="font-bold text-white">Web3 Development</h4>
+                </div>
+                <p className="text-gray-200 text-sm">Decentralized applications (dApps) and Smart Contracts</p>
               </div>
             </div>
           </div>
