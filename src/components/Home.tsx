@@ -170,7 +170,7 @@ const Home = () => {
 
               {/* Resume/CV */}
               <a
-                href="/assets/resume/MAIN 2026 Jan.pdf"
+                href="/assets/resume/MAIN 2026 April .pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-all duration-300 transform hover:scale-110"
