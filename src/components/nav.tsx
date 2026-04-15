@@ -33,6 +33,10 @@ const Navbar = () => {
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string, index: number) => {
     e.preventDefault();
     setActiveIndex(index);
+    if (window.location.pathname !== '/') {
+      window.location.href = `/${href}`;
+      return;
+    }
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
