@@ -150,10 +150,18 @@ const Footer = () => {
           <div className="text-center">
             <p className="text-xs text-blue-300 uppercase tracking-[0.3em] mb-6">Quick Links</p>
             <div className="flex flex-wrap justify-center gap-4 mb-6">
-              {['Home', 'About', 'Skills', 'Projects', 'Certificates', 'Contact'].map((link, index) => (
+              {[
+                { name: 'Home', href: '/#home' },
+                { name: 'About', href: '/#about' },
+                { name: 'Skills', href: '/#skills' },
+                { name: 'Projects', href: '/#projects' },
+                { name: 'Certificates', href: '/#certificates' },
+                { name: 'Contact', href: '/#contact' },
+                { name: 'PGCET Papers', href: '/pgcet-papers' }
+              ].map((link, index) => (
                 <a
-                  key={link}
-                  href={`#${link.toLowerCase()}`}
+                  key={link.name}
+                  href={link.href}
                   className="group relative px-5 py-2.5 text-sm font-semibold text-blue-100 uppercase tracking-wider overflow-hidden rounded-xl transition-all duration-500 hover:text-white hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/30"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
@@ -167,7 +175,7 @@ const Footer = () => {
                   {/* Shimmer sweep effect */}
                   <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out"></span>
                   {/* Text */}
-                  <span className="relative z-10 drop-shadow-sm">{link}</span>
+                  <span className="relative z-10 drop-shadow-sm">{link.name}</span>
                 </a>
               ))}
             </div>
