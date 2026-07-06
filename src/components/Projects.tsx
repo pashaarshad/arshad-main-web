@@ -13,9 +13,11 @@ interface Project {
   link?: string;
   isVideo?: boolean;
   category: ProjectCategory[];
+  type?: 'freelance' | 'academic';
 }
 
 const Projects = () => {
+  const [projectType, setProjectType] = useState<'freelance' | 'academic'>('freelance');
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>('all');
   const [showAll, setShowAll] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -31,60 +33,116 @@ const Projects = () => {
   ];
 
   const projects: Project[] = [
-    // --- FEATURED TOP 3 ---
-    { title: 'Criminal Identification System', description: 'Criminal identification system using Python on 03/07/2024.', video: 'https://www.youtube.com/embed/0lMsasNGoFA?si=6MN3SDWZu9Xyq1TM', isVideo: true, category: ['ai-ml'] },
-    { title: 'Library Management System', description: 'Library management system project on 10/06/2025.', video: 'https://www.youtube.com/embed/ULIltpxyJu0?si=ctn2WwGBxJP5Nmvo', isVideo: true, category: ['ai-ml', 'automation'] },
-    { title: 'Encrypt Decrypt Project', description: 'Encryption/Decryption cybersecurity project on 23/06/2025.', image: '/assets/img/project5.png', link: 'https://project-5-encrypt-decrypt-project-w9hq.onrender.com/', category: ['cybersecurity'] },
+    // --- FREELANCE / CLIENT PROJECTS ---
+    {
+      title: 'Destiny Protocol',
+      description: 'A premium decentralized finance protocol landing page and trading platform.',
+      image: '/assets/img/destiny-protocolio.png',
+      link: 'https://www.destiny-protocol.io/',
+      category: ['web-development'],
+      type: 'freelance'
+    },
+    {
+      title: 'Generation Marketing LMS',
+      description: 'An advanced educational Learning Management System (LMS) with course navigation and tracking.',
+      image: '/assets/img/edu.generationmarketing.png',
+      link: 'https://edu.generationmarketing.in/',
+      category: ['web-development'],
+      type: 'freelance'
+    },
+    {
+      title: 'Generation Marketing Portal',
+      description: 'A professional and futuristic marketing agency portal with sleek interactions and layouts.',
+      image: '/assets/img/generationmarketing.png',
+      link: 'https://generationmarketing.in/',
+      category: ['web-development'],
+      type: 'freelance'
+    },
 
-    // --- OTHER PROJECTS ---
-    // Web Development Projects
-    { title: 'PUC College Website', description: 'This is the first website of my PU college, created in the year 2021–22.', image: '/assets/img/arshad786.42web.io.png', link: 'https://arshadpuc.netlify.app/', category: ['web-development'] },
-    { title: 'My Personal Website', description: 'Personal website to store personal files, created in 2022.', image: '/assets/img/arshad65.42web.io.png', link: 'https://arshadold.netlify.app/', category: ['web-development'] },
-    { title: 'Degree College Website V2', description: 'The 2nd website of my Seshadripuram Degree college, created in 2023.', image: '/assets/img/sdcvo.png', link: 'https://sdcarshad.netlify.app/', category: ['web-development'] },
-    { title: 'Our Rashmi Mam', description: 'First client website for practicing, created in 2024.', image: '/assets/img/rashami.png', link: 'https://rashmiweb.netlify.app/', category: ['web-development'] },
-    { title: 'Rashmi Mam V2 - Professional', description: 'Fully Professional, Responsive Website with Kannada Language Support.', image: '/assets/img/rashmi-newv2.png', link: 'https://rashmik.netlify.app/', category: ['web-development'] },
-    { title: 'My Friend Website', description: 'First website gifted as a Birthday Gift on 06/03/2024.', image: '/assets/img/tfweb.png', link: 'https://tauqeerweb.netlify.app/', category: ['web-development', 'birthday-gifts'] },
-    { title: 'Khazi Friend Website', description: 'Created on 03/07/2024.', image: '/assets/img/khazi.png', link: 'https://khazi.netlify.app/', category: ['web-development', 'birthday-gifts'] },
-    { title: 'Project 0 - Library Management', description: 'Library management system project.', image: '/assets/img/project0.png', link: 'https://project0lms.netlify.app/', category: ['web-development'] },
-    { title: 'Our Masjid Website', description: 'Community masjid website.', image: '/assets/img/masjid.png', link: 'https://arshadupcoming.netlify.app/', category: ['web-development'] },
-    { title: 'Sandhya Birthday Gift', description: 'Birthday gift website for Library Mam on 21/9/24.', image: '/assets/img/httpssandhyaachari.netlify.app.png', link: 'https://sandhyaachari.netlify.app/', category: ['web-development', 'birthday-gifts'] },
-    { title: '1st Professional Website', description: 'First professional client website.', image: '/assets/img/bharathi_mam_vap.png', link: 'https://bharathishankar.netlify.app/', category: ['web-development'] },
-    { title: 'Full Animated Website', description: 'Fully animated website created on 20/1/25.', image: '/assets/img/p1.png', link: 'https://65project1.netlify.app/', category: ['web-development'] },
-    { title: 'Advanced TODO List App', description: 'Advanced TODO app with localStorage on 29/6/25.', image: '/assets/img/todo.png', link: 'https://arshadtodoapp.netlify.app/', category: ['web-development'] },
-    { title: 'QR Code Generator', description: 'QR Code generator with URL and Text on 5/06/25.', image: '/assets/img/qrcode.png', link: 'https://qr-code-website.onrender.com/', category: ['web-development'] },
-    { title: 'Happy Birthday Gift Website', description: 'Birthday gift website for Lohit Sir.', image: '/assets/img/happy_website1.png', link: 'https://lohitsir.netlify.app/', category: ['web-development', 'birthday-gifts'] },
-    { title: 'UI/UX to React Coding', description: 'Converting UI/UX design to ReactJS code.', image: '/assets/img/Uiuxtocode.png', link: 'https://ui-ux-degiin-to-codeing-5xa80ovk3.vercel.app/', category: ['web-development'] },
-    { title: 'Next.js TODO App', description: 'TODO app built with ReactJS and Next.js.', image: '/assets/img/todolistnextjs.png', link: 'https://todo-app-with-react-js-and-next-js-chi.vercel.app/', category: ['web-development'] },
-    { title: 'Company Website Redesign', description: 'Redesigned company website on 31/08/2025.', image: '/assets/img/rahul-class-Redigsied-Real_website.png', link: 'https://rahulsir-redesign-by-arshad.netlify.app/', category: ['web-development'] },
-    { title: 'Think41 E-Commerce', description: 'E-Commerce website created for interview project.', image: '/assets/img/think41-e.png', link: 'https://think41-e-commerce.netlify.app/', category: ['web-development'] },
-    { title: 'My First Game', description: 'First game created using Next.js.', image: '/assets/img/first-game.png', link: 'https://first-game-arshad-euge94wgj-arshad-pashas-projects-d7ff6964.vercel.app/', category: ['web-development'] },
-    { title: 'Digital Art Sample Website', description: 'Sample digital art website with WhatsApp integration.', image: '/assets/img/digital-art.png', link: 'https://sample-digital-art.netlify.app/', category: ['web-development'] },
-    { title: 'Myntra Clone', description: 'Myntra clone using JavaScript on 6/9/2025.', image: '/assets/img/myntra-clone.png', link: 'https://arshad-project11.netlify.app/', category: ['web-development'] },
+    {
+      title: 'Rapower28',
+      description: 'A sleek SaaS landing page and control dashboard for energy resource management and power analytics.',
+      image: '/assets/img/rapower28.png',
+      link: 'https://rapower28.com/',
+      category: ['web-development'],
+      type: 'freelance'
+    },
+    {
+      title: 'MD Coaching Hub',
+      description: 'A modern educational coaching and training center portal for scheduling, classes, and student enrollments.',
+      image: '/assets/img/mdcoachinghub.png',
+      link: 'https://mdcoachinghub.in/',
+      category: ['web-development'],
+      type: 'freelance'
+    },
+    {
+      title: 'Bhuraro',
+      description: 'A clean, high-performance commercial e-commerce marketplace and localized vendor listing site.',
+      image: '/assets/img/bhuraro.png',
+      link: 'https://bhuraro.com/',
+      category: ['web-development'],
+      type: 'freelance'
+    },
 
-    // AI/ML Projects (Remaining)
-    { title: 'ElementMix - Chemical Simulator', description: 'Chemical reaction simulator ISRO project on 3/06/25.', image: '/assets/img/elementmix.png', link: 'https://elementmix-isro-project.onrender.com', category: ['ai-ml'] },
-    { title: 'Image to Text Website', description: 'OCR-based image to text converter.', image: '/assets/img/project10.png', link: 'https://youtu.be/C-tSQfC5huw?si=loKCZs04CWpDi8z5', category: ['ai-ml'] },
-
-    // Automation Projects (Remaining)
-    { title: 'Pro 7 Automation Bot', description: 'Automation bot built in 2024.', video: 'https://www.youtube.com/embed/0J1fgZZZkXE?si=96MBmtZSkl6K9C7B', isVideo: true, category: ['automation'] },
-    { title: 'Auto Excel Mail Project', description: 'Automated Excel email project in 2024.', video: 'https://www.youtube.com/embed/6-Sw3ylBdmo?si=oeuwNzhr8xH7vOvX', isVideo: true, category: ['automation'] },
-    { title: 'Word Auto PDF Project', description: 'Automated Word to PDF conversion in 2024.', video: 'https://www.youtube.com/embed/SmrUFrmVXxo?si=mGnPHkdeSd0wjeK4', isVideo: true, category: ['automation'] },
-    { title: 'ChatGPT Book Creator', description: 'Making book using ChatGPT in 2024.', video: 'https://www.youtube.com/embed/RRLkaKEX_sc?si=Qt7FuZ7l_1AeMbXV', isVideo: true, category: ['automation', 'ai-ml'] },
-    { title: 'Data Entry UiPath Project', description: 'Advanced automation project with UiPath 2024/2025.', video: 'https://www.youtube.com/embed/MiwuCoPdHPU?si=FCmnvBhWaOC6flsJ', isVideo: true, category: ['automation'] },
-    { title: 'KIOSK OS Library System', description: 'Real-time working system in college - 2025.', video: 'https://www.youtube.com/embed/ztMWIy6vX5k?si=ty4XuA4NLNhwNfVr', isVideo: true, category: ['automation'] },
-    { title: 'Chrome Extension', description: 'Custom Chrome extension project.', image: '/assets/img/project9new.png', link: 'https://youtu.be/rNEbBEcnUtc?si=aT-Yzc_W2FbsVRoC', category: ['automation'] },
-
-    // Hackathon Projects
-    { title: 'Total Wellness Hackathon', description: 'First competition website at Hindustan College, Mysore on 22/03/2024.', image: '/assets/img/totalwellness.netlify.app.png', link: 'https://totalwellness.netlify.app/', category: ['hackathons', 'web-development'] },
-    { title: 'Infosys Smart Recycling', description: 'Smart recycling solution at Infosys 48-hour hackathon on 11-12 July 2025.', image: '/assets/img/infosys_hackthon.png', link: 'https://smart-recyle.netlify.app/', category: ['hackathons', 'web-development'] },
+    // --- ACADEMIC / STUDENT PROJECTS ---
+    { title: 'Criminal Identification System', description: 'Criminal identification system using Python on 03/07/2024.', video: 'https://www.youtube.com/embed/0lMsasNGoFA?si=6MN3SDWZu9Xyq1TM', isVideo: true, category: ['ai-ml'], type: 'academic' },
+    { title: 'Library Management System', description: 'Library management system project on 10/06/2025.', video: 'https://www.youtube.com/embed/ULIltpxyJu0?si=ctn2WwGBxJP5Nmvo', isVideo: true, category: ['ai-ml', 'automation'], type: 'academic' },
+    { title: 'Encrypt Decrypt Project', description: 'Encryption/Decryption cybersecurity project on 23/06/2025.', image: '/assets/img/project5.png', link: 'https://project-5-encrypt-decrypt-project-w9hq.onrender.com/', category: ['cybersecurity'], type: 'academic' },
+    { title: 'PUC College Website', description: 'This is the first website of my PU college, created in the year 2021–22.', image: '/assets/img/arshad786.42web.io.png', link: 'https://arshadpuc.netlify.app/', category: ['web-development'], type: 'academic' },
+    { title: 'My Personal Website', description: 'Personal website to store personal files, created in 2022.', image: '/assets/img/arshad65.42web.io.png', link: 'https://arshadold.netlify.app/', category: ['web-development'], type: 'academic' },
+    { title: 'Degree College Website V2', description: 'The 2nd website of my Seshadripuram Degree college, created in 2023.', image: '/assets/img/sdcvo.png', link: 'https://sdcarshad.netlify.app/', category: ['web-development'], type: 'academic' },
+    { title: 'Our Rashmi Mam', description: 'First client website for practicing, created in 2024.', image: '/assets/img/rashami.png', link: 'https://rashmiweb.netlify.app/', category: ['web-development'], type: 'academic' },
+    { title: 'Rashmi Mam V2 - Professional', description: 'Fully Professional, Responsive Website with Kannada Language Support.', image: '/assets/img/rashmi-newv2.png', link: 'https://rashmik.netlify.app/', category: ['web-development'], type: 'academic' },
+    { title: 'My Friend Website', description: 'First website gifted as a Birthday Gift on 06/03/2024.', image: '/assets/img/tfweb.png', link: 'https://tauqeerweb.netlify.app/', category: ['web-development', 'birthday-gifts'], type: 'academic' },
+    { title: 'Khazi Friend Website', description: 'Created on 03/07/2024.', image: '/assets/img/khazi.png', link: 'https://khazi.netlify.app/', category: ['web-development', 'birthday-gifts'], type: 'academic' },
+    { title: 'Project 0 - Library Management', description: 'Library management system project.', image: '/assets/img/project0.png', link: 'https://project0lms.netlify.app/', category: ['web-development'], type: 'academic' },
+    { title: 'Our Masjid Website', description: 'Community masjid website.', image: '/assets/img/masjid.png', link: 'https://arshadupcoming.netlify.app/', category: ['web-development'], type: 'academic' },
+    { title: 'Sandhya Birthday Gift', description: 'Birthday gift website for Library Mam on 21/9/24.', image: '/assets/img/httpssandhyaachari.netlify.app.png', link: 'https://sandhyaachari.netlify.app/', category: ['web-development', 'birthday-gifts'], type: 'academic' },
+    { title: '1st Professional Website', description: 'First professional client website.', image: '/assets/img/bharathi_mam_vap.png', link: 'https://bharathishankar.netlify.app/', category: ['web-development'], type: 'academic' },
+    { title: 'Full Animated Website', description: 'Fully animated website created on 20/1/25.', image: '/assets/img/p1.png', link: 'https://65project1.netlify.app/', category: ['web-development'], type: 'academic' },
+    { title: 'Advanced TODO List App', description: 'Advanced TODO app with localStorage on 29/6/25.', image: '/assets/img/todo.png', link: 'https://arshadtodoapp.netlify.app/', category: ['web-development'], type: 'academic' },
+    { title: 'QR Code Generator', description: 'QR Code generator with URL and Text on 5/06/25.', image: '/assets/img/qrcode.png', link: 'https://qr-code-website.onrender.com/', category: ['web-development'], type: 'academic' },
+    { title: 'Happy Birthday Gift Website', description: 'Birthday gift website for Lohit Sir.', image: '/assets/img/happy_website1.png', link: 'https://lohitsir.netlify.app/', category: ['web-development', 'birthday-gifts'], type: 'academic' },
+    { title: 'UI/UX to React Coding', description: 'Converting UI/UX design to ReactJS code.', image: '/assets/img/Uiuxtocode.png', link: 'https://ui-ux-degiin-to-codeing-5xa80ovk3.vercel.app/', category: ['web-development'], type: 'academic' },
+    { title: 'Next.js TODO App', description: 'TODO app built with ReactJS and Next.js.', image: '/assets/img/todolistnextjs.png', link: 'https://todo-app-with-react-js-and-next-js-chi.vercel.app/', category: ['web-development'], type: 'academic' },
+    { title: 'Company Website Redesign', description: 'Redesigned company website on 31/08/2025.', image: '/assets/img/rahul-class-Redigsied-Real_website.png', link: 'https://rahulsir-redesign-by-arshad.netlify.app/', category: ['web-development'], type: 'academic' },
+    { title: 'Think41 E-Commerce', description: 'E-Commerce website created for interview project.', image: '/assets/img/think41-e.png', link: 'https://think41-e-commerce.netlify.app/', category: ['web-development'], type: 'academic' },
+    { title: 'My First Game', description: 'First game created using Next.js.', image: '/assets/img/first-game.png', link: 'https://first-game-arshad-euge94wgj-arshad-pashas-projects-d7ff6964.vercel.app/', category: ['web-development'], type: 'academic' },
+    { title: 'Digital Art Sample Website', description: 'Sample digital art website with WhatsApp integration.', image: '/assets/img/digital-art.png', link: 'https://sample-digital-art.netlify.netlify.app/', category: ['web-development'], type: 'academic' },
+    { title: 'Myntra Clone', description: 'Myntra clone using JavaScript on 6/9/2025.', image: '/assets/img/myntra-clone.png', link: 'https://arshad-project11.netlify.app/', category: ['web-development'], type: 'academic' },
+    { title: 'ElementMix - Chemical Simulator', description: 'Chemical reaction simulator ISRO project on 3/06/25.', image: '/assets/img/elementmix.png', link: 'https://elementmix-isro-project.onrender.com', category: ['ai-ml'], type: 'academic' },
+    { title: 'Image to Text Website', description: 'OCR-based image to text converter.', image: '/assets/img/project10.png', link: 'https://youtu.be/C-tSQfC5huw?si=loKCZs04CWpDi8z5', category: ['ai-ml'], type: 'academic' },
+    { title: 'Pro 7 Automation Bot', description: 'Automation bot built in 2024.', video: 'https://www.youtube.com/embed/0J1fgZZZkXE?si=96MBmtZSkl6K9C7B', isVideo: true, category: ['automation'], type: 'academic' },
+    { title: 'Auto Excel Mail Project', description: 'Automated Excel email project in 2024.', video: 'https://www.youtube.com/embed/6-Sw3ylBdmo?si=oeuwNzhr8xH7vOvX', isVideo: true, category: ['automation'], type: 'academic' },
+    { title: 'Word Auto PDF Project', description: 'Automated Word to PDF conversion in 2024.', video: 'https://www.youtube.com/embed/SmrUFrmVXxo?si=mGnPHkdeSd0wjeK4', isVideo: true, category: ['automation'], type: 'academic' },
+    { title: 'ChatGPT Book Creator', description: 'Making book using ChatGPT in 2024.', video: 'https://www.youtube.com/embed/RRLkaKEX_sc?si=Qt7FuZ7l_1AeMbXV', isVideo: true, category: ['automation', 'ai-ml'], type: 'academic' },
+    { title: 'Data Entry UiPath Project', description: 'Advanced automation project with UiPath 2024/2025.', video: 'https://www.youtube.com/embed/MiwuCoPdHPU?si=FCmnvBhWaOC6flsJ', isVideo: true, category: ['automation'], type: 'academic' },
+    { title: 'KIOSK OS Library System', description: 'Real-time working system in college - 2025.', video: 'https://www.youtube.com/embed/ztMWIy6vX5k?si=ty4XuA4NLNhwNfVr', isVideo: true, category: ['automation'], type: 'academic' },
+    { title: 'Chrome Extension', description: 'Custom Chrome extension project.', image: '/assets/img/project9new.png', link: 'https://youtu.be/rNEbBEcnUtc?si=aT-Yzc_W2FbsVRoC', category: ['automation'], type: 'academic' },
+    { title: 'Total Wellness Hackathon', description: 'First competition website at Hindustan College, Mysore on 22/03/2024.', image: '/assets/img/totalwellness.netlify.app.png', link: 'https://totalwellness.netlify.app/', category: ['hackathons', 'web-development'], type: 'academic' },
+    { title: 'Infosys Smart Recycling', description: 'Smart recycling solution at Infosys 48-hour hackathon on 11-12 July 2025.', image: '/assets/img/infosys_hackthon.png', link: 'https://smart-recyle.netlify.app/', category: ['hackathons', 'web-development'], type: 'academic' },
   ];
 
-  const filteredProjects = useMemo(() => {
-    if (activeCategory === 'all') return projects;
-    return projects.filter(project => project.category.includes(activeCategory));
-  }, [activeCategory]);
+  const availableCategories = useMemo(() => {
+    const typeProjects = projects.filter(p => (p.type || 'academic') === projectType);
+    const categoryKeys = new Set<ProjectCategory>();
+    categoryKeys.add('all');
+    typeProjects.forEach(p => {
+      p.category.forEach(cat => categoryKeys.add(cat));
+    });
+    return categories.filter(cat => categoryKeys.has(cat.key));
+  }, [projectType]);
 
-  const displayedProjects = showAll ? filteredProjects : filteredProjects.slice(0, 3); // UPDATED: 6 -> 3
+  const filteredProjects = useMemo(() => {
+    const typeProjects = projects.filter(project => {
+      const pType = project.type || 'academic';
+      return pType === projectType;
+    });
+    if (activeCategory === 'all') return typeProjects;
+    return typeProjects.filter(project => project.category.includes(activeCategory));
+  }, [activeCategory, projectType]);
+
+  const displayedProjects = showAll ? filteredProjects : filteredProjects.slice(0, 3);
 
   const openModal = (project: Project) => {
     setSelectedProject(project);
@@ -106,14 +164,52 @@ const Projects = () => {
             <span className="text-accent-secondary">Featured</span> Projects
           </h2>
           <p className="text-text-secondary text-base sm:text-lg max-w-2xl mx-auto">
-            Explore my collection of projects across various domains including web development, AI/ML, automation, and more.
+            {projectType === 'freelance'
+              ? 'Explore my professional portfolio of production-grade client projects, SaaS platforms, and custom freelance work.'
+              : 'Browse my academic projects, coding challenges, competition entries, and personal tools built during my student life.'}
           </p>
+        </div>
+
+        {/* Project Group Toggle */}
+        <div className="flex justify-center mb-10">
+          <div className="bg-card-bg border border-card-border p-1.5 rounded-xl flex gap-1 shadow-md">
+            <button
+              onClick={() => {
+                setProjectType('freelance');
+                setActiveCategory('all');
+                setShowAll(false);
+              }}
+              className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 flex items-center gap-2 ${
+                projectType === 'freelance'
+                  ? 'bg-accent-primary text-white shadow-md'
+                  : 'text-text-secondary hover:text-text-primary hover:bg-card-bg-hover'
+              }`}
+              suppressHydrationWarning
+            >
+              💼 Client & Freelance
+            </button>
+            <button
+              onClick={() => {
+                setProjectType('academic');
+                setActiveCategory('all');
+                setShowAll(false);
+              }}
+              className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 flex items-center gap-2 ${
+                projectType === 'academic'
+                  ? 'bg-accent-primary text-white shadow-md'
+                  : 'text-text-secondary hover:text-text-primary hover:bg-card-bg-hover'
+              }`}
+              suppressHydrationWarning
+            >
+              🎓 Academic & Student
+            </button>
+          </div>
         </div>
 
         {/* Category Navigation */}
         <div className="mb-8 sm:mb-10">
           <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-            {categories.map((cat) => (
+            {availableCategories.map((cat) => (
               <button
                 key={cat.key}
                 onClick={() => {
@@ -260,7 +356,7 @@ const Projects = () => {
         </div>
 
         {/* View All / Show Less Button */}
-        {filteredProjects.length > 3 && ( // UPDATED: 6 -> 3
+        {filteredProjects.length > 3 && (
           <div className="text-center mt-10">
             <button
               onClick={() => setShowAll(!showAll)}
