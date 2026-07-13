@@ -36,15 +36,15 @@ const Projects = () => {
     // --- FREELANCE / CLIENT PROJECTS ---
     {
       title: 'Destiny Protocol',
-      description: 'A premium decentralized finance protocol landing page and trading platform.',
+      description: 'A fully animated website designed with rich UI, smooth animations, and interactive elements.',
       image: '/assets/img/destiny-protocolio.png',
       link: 'https://www.destiny-protocol.io/',
       category: ['web-development'],
       type: 'freelance'
     },
     {
-      title: 'Generation Marketing LMS',
-      description: 'An advanced educational Learning Management System (LMS) with course navigation and tracking.',
+      title: 'Generation Marketing Landing Page',
+      description: 'A clean and professional landing page designed for educational and marketing purposes.',
       image: '/assets/img/edu.generationmarketing.png',
       link: 'https://edu.generationmarketing.in/',
       category: ['web-development'],
@@ -52,7 +52,7 @@ const Projects = () => {
     },
     {
       title: 'Generation Marketing Portal',
-      description: 'A professional and futuristic marketing agency portal with sleek interactions and layouts.',
+      description: 'A marketing agency website designed to showcase services, portfolios, and agency capabilities.',
       image: '/assets/img/generationmarketing.png',
       link: 'https://generationmarketing.in/',
       category: ['web-development'],
@@ -61,7 +61,7 @@ const Projects = () => {
 
     {
       title: 'Rapower28',
-      description: 'A sleek SaaS landing page and control dashboard for energy resource management and power analytics.',
+      description: 'A platform and news portal designed for Karnataka news updates and local information.',
       image: '/assets/img/rapower28.png',
       link: 'https://rapower28.com/',
       category: ['web-development'],
@@ -77,7 +77,7 @@ const Projects = () => {
     },
     {
       title: 'Bhuraro',
-      description: 'A clean, high-performance commercial e-commerce marketplace and localized vendor listing site.',
+      description: 'A booking platform designed for flight booking redirection and related travel listings.',
       image: '/assets/img/bhuraro.png',
       link: 'https://bhuraro.com/',
       category: ['web-development'],
